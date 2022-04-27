@@ -74,7 +74,7 @@ public:
 		glUseProgram(ID);
 	}
 
-#pragma region ÉèÖÃuniform±äÁ¿
+#pragma region è®¾ç½®uniformå˜é‡
 
 	void SetBool(const std::string& name, bool value) const
 	{
@@ -87,6 +87,10 @@ public:
 	void setFloat(const std::string& name, float value) const
 	{
 		glUniform1f(glGetUniformLocation(ID, name.c_str()), value);
+	}
+	void setVector3(const std::string& name, glm::vec3 vector3)
+	{
+		glUniform3fv(glGetUniformLocation(ID, name.c_str()), 1, glm::value_ptr(vector3));
 	}
 	void setMatrix4(const std::string& name, glm::mat4 matrix)
 	{

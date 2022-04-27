@@ -11,6 +11,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+const glm::vec4 clearColor = glm::vec4(.1f, .3f, .1f, 1.0f);
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 bool firstMouse = true;
@@ -20,6 +21,10 @@ float lastX = 800.0f / 2.0;
 float lastY = 600.0 / 2.0;
 const float sensitivity = 0.05f;
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+
+// lighting
+glm::vec3 lightPosition(1.2f, 1.0f, 2.0f);
+glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
@@ -141,51 +146,52 @@ public:
 
 	void InitVertices()
 	{
-		// ¶¥µãÊı¾İ
+		// é¡¶ç‚¹æ•°æ®ï¼ˆä½ç½®ã€æ³•çº¿ã€çº¹ç†åæ ‡ï¼‰
 		float vertices[] = {
-				-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-				 0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-				 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-				 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-				-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-				-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+			// positions          // normals           // texture coords
+			-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  0.0f,
+			 0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f,  0.0f,
+			 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f,  1.0f,
+			 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f,  1.0f,
+			-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  1.0f,
+			-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  0.0f,
 
-				-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-				 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-				 0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-				 0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-				-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-				-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+			-0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f,  0.0f,
+			 0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f,  0.0f,
+			 0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f,  1.0f,
+			 0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f,  1.0f,
+			-0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f,  1.0f,
+			-0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f,  0.0f,
 
-				-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-				-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-				-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-				-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-				-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-				-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+			-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
+			-0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f,  1.0f,
+			-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
+			-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
+			-0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f,  0.0f,
+			-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
 
-				 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-				 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-				 0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-				 0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-				 0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-				 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+			 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
+			 0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f,  1.0f,
+			 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
+			 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
+			 0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f,  0.0f,
+			 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
 
-				-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-				 0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-				 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-				 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-				-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-				-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+			-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f,  1.0f,
+			 0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f,  1.0f,
+			 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f,  0.0f,
+			 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f,  0.0f,
+			-0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f,  0.0f,
+			-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f,  1.0f,
 
-				-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-				 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-				 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-				 0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-				-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-				-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
+			-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  1.0f,
+			 0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f,  1.0f,
+			 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f,  0.0f,
+			 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f,  0.0f,
+			-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  0.0f,
+			-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  1.0f
 		};
-		// ¶¥µãË÷ÒıÊı×é
+		// é¡¶ç‚¹ç´¢å¼•æ•°ç»„
 		unsigned int indices[] = {
 				0, 1, 3, // first triangle
 				1, 2, 3  // second triangle
@@ -197,34 +203,37 @@ public:
 
 		glBindVertexArray(VAO);
 
-		// °ó¶¨£¬ÕâÑùÖ®ºóµÄDrawCall¶¼»áÓ¦ÓÃÔÚµ±Ç°°ó¶¨µÄVBOÉÏ
+		// ç»‘å®šï¼Œè¿™æ ·ä¹‹åçš„DrawCalléƒ½ä¼šåº”ç”¨åœ¨å½“å‰ç»‘å®šçš„VBOä¸Š
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		// ½«ÓÃ»§¶¨ÒåµÄÊı¾İ¸´ÖÆµ½µ±Ç°°ó¶¨»º³å£¬¼´Ö®Ç°µÄVBO
+		// å°†ç”¨æˆ·å®šä¹‰çš„æ•°æ®å¤åˆ¶åˆ°å½“å‰ç»‘å®šç¼“å†²ï¼Œå³ä¹‹å‰çš„VBO
 		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-		// ´¦Àí¶¥µãĞÅÏ¢
-		// ²ÎÊı1£º¶¥µãÊôĞÔµÄÎ»ÖÃÖµ£¬¶ÔÓ¦¶¥µã×ÅÉ«Æ÷ÖĞµÄlayout (location = 0) in vec3 aPos;¶¥µãÊı¾İ±»´«Èë¸Ã±äÁ¿
-		// ²ÎÊı2£º¶¥µãÊôĞÔ´óĞ¡£¬¶¥µãÊôĞÔÊÇÒ»¸övec3£¬ËüÓÉ3¸öÖµ×é³É£¬ËùÒÔ´óĞ¡ÊÇ3
-		// ²ÎÊı3£ºÊı¾İÀàĞÍ£¬GL_FLOAT¶ÔÓ¦float
-		// ²ÎÊı4£ºÊÇ·ñÏ£ÍûÊı¾İ±»±ê×¼»¯£¨Normalize£©£¬Èç¹ûÎÒÃÇÉèÖÃÎªGL_TRUE£¬ËùÓĞÊı¾İ¶¼»á±»Ó³Éäµ½0£¨¶ÔÓÚÓĞ·ûºÅĞÍsignedÊı¾İÊÇ-1£©µ½1Ö®¼ä
-		// ²ÎÊı5£º²½³¤£¨Stride£©£¬Ëü¸æËßÎÒÃÇÔÚÁ¬ĞøµÄ¶¥µãÊôĞÔ×éÖ®¼äµÄ¼ä¸ô
-		// ²ÎÊı6£º±íÊ¾Î»ÖÃÊı¾İÔÚ»º³åÖĞÆğÊ¼Î»ÖÃµÄÆ«ÒÆÁ¿(Offset)
-		// **¸Ãº¯Êı±ØĞëÒªÔÚVBO°ó¶¨ºóÔÙ½øĞĞµ÷ÓÃ**
-		// Î»ÖÃÊôĞÔ
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-		// ÒÔ¶¥µãÊôĞÔÎ»ÖÃÖµ×÷Îª²ÎÊı£¬ÆôÓÃ¶¥µãÊôĞÔ
+		// å¤„ç†é¡¶ç‚¹ä¿¡æ¯
+		// å‚æ•°1ï¼šé¡¶ç‚¹å±æ€§çš„ä½ç½®å€¼ï¼Œå¯¹åº”é¡¶ç‚¹ç€è‰²å™¨ä¸­çš„layout (location = 0) in vec3 aPos;é¡¶ç‚¹æ•°æ®è¢«ä¼ å…¥è¯¥å˜é‡
+		// å‚æ•°2ï¼šé¡¶ç‚¹å±æ€§å¤§å°ï¼Œé¡¶ç‚¹å±æ€§æ˜¯ä¸€ä¸ªvec3ï¼Œå®ƒç”±3ä¸ªå€¼ç»„æˆï¼Œæ‰€ä»¥å¤§å°æ˜¯3
+		// å‚æ•°3ï¼šæ•°æ®ç±»å‹ï¼ŒGL_FLOATå¯¹åº”float
+		// å‚æ•°4ï¼šæ˜¯å¦å¸Œæœ›æ•°æ®è¢«æ ‡å‡†åŒ–ï¼ˆNormalizeï¼‰ï¼Œå¦‚æœæˆ‘ä»¬è®¾ç½®ä¸ºGL_TRUEï¼Œæ‰€æœ‰æ•°æ®éƒ½ä¼šè¢«æ˜ å°„åˆ°0ï¼ˆå¯¹äºæœ‰ç¬¦å·å‹signedæ•°æ®æ˜¯-1ï¼‰åˆ°1ä¹‹é—´
+		// å‚æ•°5ï¼šæ­¥é•¿ï¼ˆStrideï¼‰ï¼Œå®ƒå‘Šè¯‰æˆ‘ä»¬åœ¨è¿ç»­çš„é¡¶ç‚¹å±æ€§ç»„ä¹‹é—´çš„é—´éš”
+		// å‚æ•°6ï¼šè¡¨ç¤ºä½ç½®æ•°æ®åœ¨ç¼“å†²ä¸­èµ·å§‹ä½ç½®çš„åç§»é‡(Offset)
+		// **è¯¥å‡½æ•°å¿…é¡»è¦åœ¨VBOç»‘å®šåå†è¿›è¡Œè°ƒç”¨**
+		// ä½ç½®å±æ€§
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+		// ä»¥é¡¶ç‚¹å±æ€§ä½ç½®å€¼ä½œä¸ºå‚æ•°ï¼Œå¯ç”¨é¡¶ç‚¹å±æ€§
 		glEnableVertexAttribArray(0);
-		//// ÑÕÉ«ÊôĞÔ
+		// æ³•çº¿å±æ€§
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+		glEnableVertexAttribArray(1);
+		// çº¹ç†åæ ‡å±æ€§
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+		glEnableVertexAttribArray(2);
+		//// é¢œè‰²å±æ€§
 		//glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
 		//glEnableVertexAttribArray(1);
-		// ÎÆÀí×ø±êÊôĞÔ
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-		glEnableVertexAttribArray(1);
 
-		// ½â°ó
+		// è§£ç»‘
 		// note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex attribute's bound vertex buffer object so afterwards we can safely unbind
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
@@ -240,32 +249,32 @@ public:
 
 	unsigned int InitTexture(const char* filename, int format, bool isFlipVertical)
 	{
-		// Éú³ÉÎÆÀí
+		// ç”Ÿæˆçº¹ç†
 		unsigned int texture;
 		glGenTextures(1, &texture);
-		// °ó¶¨ÎÆÀí£¬ÈÃÖ®ºóµÄÈÎºÎÎÆÀíÖ¸Áî¶¼¿ÉÒÔÅäÖÃµ±Ç°°ó¶¨µÄÎÆÀí
+		// ç»‘å®šçº¹ç†ï¼Œè®©ä¹‹åçš„ä»»ä½•çº¹ç†æŒ‡ä»¤éƒ½å¯ä»¥é…ç½®å½“å‰ç»‘å®šçš„çº¹ç†
 		glBindTexture(GL_TEXTURE_2D, texture);
-		// ÉèÖÃÎÆÀí»·ÈÆ·½Ê½
+		// è®¾ç½®çº¹ç†ç¯ç»•æ–¹å¼
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
-		// ÉèÖÃÎÆÀí¹ıÂË·½Ê½
+		// è®¾ç½®çº¹ç†è¿‡æ»¤æ–¹å¼
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 
-		// ¼ÓÔØÍ¼Æ¬
+		// åŠ è½½å›¾ç‰‡
 		int width, height, nrChannels;
 		if (isFlipVertical) stbi_set_flip_vertically_on_load(true);
 		unsigned char* data = stbi_load(filename, &width, &height, &nrChannels, 0);
 		if (data)
 		{
-			// Ê¹ÓÃÍ¼Æ¬Êı¾İÉú³ÉÎÆÀí
+			// ä½¿ç”¨å›¾ç‰‡æ•°æ®ç”Ÿæˆçº¹ç†
 			glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
-			// Îªµ±Ç°°ó¶¨µÄÎÆÀí×Ô¶¯Éú³ÉËùÓĞĞèÒªµÄ¶à¼¶½¥Ô¶ÎÆÀí
+			// ä¸ºå½“å‰ç»‘å®šçš„çº¹ç†è‡ªåŠ¨ç”Ÿæˆæ‰€æœ‰éœ€è¦çš„å¤šçº§æ¸è¿œçº¹ç†
 			glGenerateMipmap(GL_TEXTURE_2D);
 		}
 		else std::cout << "Failed to load texture" << filename << std::endl;
 
-		// Éú³ÉÎÆÀíÖ®ºó¿ÉÒÔÊÍ·ÅÍ¼Æ¬µÄÄÚ´æÊı¾İÁË
+		// ç”Ÿæˆçº¹ç†ä¹‹åå¯ä»¥é‡Šæ”¾å›¾ç‰‡çš„å†…å­˜æ•°æ®äº†
 		stbi_image_free(data);
 
 		return texture;
@@ -289,24 +298,24 @@ public:
 		glm::vec3 targetPosition = glm::vec3(0.0f, 0.0f, 0.0f);
 		float radius = 10.0f;
 
-		// ¿ªÆôÉî¶È²âÊÔ
+		// å¼€å¯æ·±åº¦æµ‹è¯•
 		glEnable(GL_DEPTH_TEST);
-		//// ¿ªÆôÌŞ³ı
+		//// å¼€å¯å‰”é™¤
 		//glEnable(GL_CULL_FACE);
-		//// ¿ªÆô±³ÃæÌŞ³ı
+		//// å¼€å¯èƒŒé¢å‰”é™¤
 		//glCullFace(GL_BACK);
-		// Ïß¿òÄ£Ê½
+		// çº¿æ¡†æ¨¡å¼
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		while (!glfwWindowShouldClose(window))
 		{
 			CaculateDeltaTime();
 			processInput(window);
 
-			glClearColor(.2f, .3f, .3f, 1.0f);
+			glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			// Ê¹ÓÃ£¨¼¤»î£©×ÅÉ«Æ÷³ÌĞò¶ÔÏó£¬½ÓÏÂÀ´Ã¿¸ö×ÅÉ«Æ÷µ÷ÓÃºÍäÖÈ¾µ÷ÓÃ¶¼»áÊ¹ÓÃ¸Ã×ÅÉ«Æ÷³ÌĞò¶ÔÏó
+			// ä½¿ç”¨ï¼ˆæ¿€æ´»ï¼‰ç€è‰²å™¨ç¨‹åºå¯¹è±¡ï¼Œæ¥ä¸‹æ¥æ¯ä¸ªç€è‰²å™¨è°ƒç”¨å’Œæ¸²æŸ“è°ƒç”¨éƒ½ä¼šä½¿ç”¨è¯¥ç€è‰²å™¨ç¨‹åºå¯¹è±¡
 			shader->use();
-			// ±ØĞë¼¤»î×ÅÉ«Æ÷³ÌĞò¶ÔÏóÖ®ºó²ÅÄÜ½øĞĞÉèÖÃuniform±äÁ¿µÄ²Ù×÷
+			// å¿…é¡»æ¿€æ´»ç€è‰²å™¨ç¨‹åºå¯¹è±¡ä¹‹åæ‰èƒ½è¿›è¡Œè®¾ç½®uniformå˜é‡çš„æ“ä½œ
 			//glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
 			glm::mat4 view = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
 			glm::mat4 projection = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
@@ -323,15 +332,19 @@ public:
 			shader->setMatrix4("view", view);
 			shader->setMatrix4("projection", projection);
 
-			// ÏÈÉèÖÃµ±Ç°¼¤»îµÄÎÆÀíµ¥Ôª
+			// å…ˆè®¾ç½®å½“å‰æ¿€æ´»çš„çº¹ç†å•å…ƒ
 			glActiveTexture(GL_TEXTURE0);
-			// °ó¶¨ÎÆÀíµ½µ±Ç°¼¤»îµÄÎÆÀíµ¥Ôª
+			// ç»‘å®šçº¹ç†åˆ°å½“å‰æ¿€æ´»çš„çº¹ç†å•å…ƒ
 			glBindTexture(GL_TEXTURE_2D, textures[0]);
-			// Í¬ÉÏ
+			// åŒä¸Š
 			glActiveTexture(GL_TEXTURE1);
 			glBindTexture(GL_TEXTURE_2D, textures[1]);
 			shader->setInt("texture0", 0);
 			shader->setInt("texture1", 1);
+
+			// å…‰æºä½ç½®ã€é¢œè‰²
+			shader->setVector3("lightPositionWS", lightPosition);
+			shader->setVector3("lightColor", lightColor);
 
 			glBindVertexArray(VAO);
 			for (int i = 0; i < 10; i++)
@@ -339,7 +352,7 @@ public:
 				glm::mat4 model = glm::mat4(1.0f);
 				model = glm::translate(model, cubePositions[i]);
 				float angle = 20.0f * i;
-				model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+				//model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
 				shader->setMatrix4("model", model);
 				glDrawArrays(GL_TRIANGLES, 0, 36);
 			}
