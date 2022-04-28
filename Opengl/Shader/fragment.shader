@@ -18,6 +18,10 @@ void main()
 {
 	vec3 objectColor = mix(texture(texture0, ourTexCoord), texture(texture1, ourTexCoord), 0.3).rgb;
 
+	// ambient
+	float ambientStrength = 0.3f;
+	vec3 ambient = ambientStrength * lightColor;
+
 	// diffuse
 	vec3 normal = normalize(normalOUT);
 	vec3 lightDirection = normalize(lightPositionWS - fragmentPositionWS);
@@ -31,6 +35,6 @@ void main()
 	float specularStrength = 2f;
 	vec3 specularColor = specularStrength * specular * lightColor;
 
-	vec3 result = objectColor * (diffuseColor + specularColor);
+	vec3 result = objectColor * (diffuseColor + specularColor + ambient);
 	FragColor = vec4(result, 1.0f);
 }
