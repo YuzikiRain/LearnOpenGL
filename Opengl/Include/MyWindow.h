@@ -1,4 +1,20 @@
 #pragma once
+
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl2.h"
+#include "imgui_impl_opengl3.h"
+#include <stdio.h>
+#include <Windows.h>
+#include <tchar.h>
+#ifdef __APPLE__
+#define GL_SILENCE_DEPRECATION
+#endif
+
+#if defined(_MSC_VER) && (_MSC_VER >= 1900) && !defined(IMGUI_DISABLE_WIN32_FUNCTIONS)
+#pragma comment(lib, "legacy_stdio_definitions")
+#endif
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
@@ -135,7 +151,7 @@ public:
 
 		glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 		glfwSetCursorPosCallback(window, mouse_callback);
-		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 		return 0;
 	}
@@ -297,6 +313,15 @@ public:
 
 	void Render(unsigned int textures[])
 	{
+		ImGui::CreateContext();     // Setup Dear ImGui context
+		ImGui::StyleColorsDark();       // Setup Dear ImGui style
+		ImGui_ImplGlfw_InitForOpenGL(window, true);     // Setup Platform/Renderer backends
+		ImGui_ImplOpenGL3_Init("#version 450");
+
+		bool show_demo_window = true;
+		bool show_another_window = false;
+		ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+
 		glm::vec3 cubePositions[] = {
 		glm::vec3(0.0f,  0.0f,  0.0f),
 		glm::vec3(2.0f,  5.0f, -15.0f),
@@ -326,6 +351,11 @@ public:
 			CaculateDeltaTime();
 			processInput(window);
 
+			/* Swap front and back buffers */
+			ImGui_ImplOpenGL3_NewFrame();
+			ImGui_ImplGlfw_NewFrame();
+			ImGui::NewFrame();
+
 			glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -351,8 +381,6 @@ public:
 			glDrawArrays(GL_TRIANGLES, 0, 36);
 
 #pragma endregion
-
-
 
 			// 使用（激活）着色器程序对象，接下来每个着色器调用和渲染调用都会使用该着色器程序对象
 			shader.use();
@@ -387,6 +415,14 @@ public:
 			}
 			//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
+			// 1. Show the big demo window// (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
+			if (show_demo_window)
+				ImGui::ShowDemoWindow(&show_demo_window);
+
+			// Rendering
+			ImGui::Render();
+			ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
 			glfwSwapBuffers(window);
 			glfwPollEvents();
 		}
@@ -398,6 +434,12 @@ public:
 		glDeleteBuffers(1, &VBO);
 		glDeleteBuffers(1, &EBO);
 		glDeleteProgram(shader.ID);
+
+		ImGui_ImplOpenGL2_Shutdown();
+		ImGui_ImplGlfw_Shutdown();
+		ImGui::DestroyContext();
+
+		glfwDestroyWindow(window);
 
 		glfwTerminate();
 	}
