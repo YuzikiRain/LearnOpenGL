@@ -43,5 +43,11 @@
     <None Include="Shader\vertex.shader">
       <Filter>Shader</Filter>
     </None>
+    <None Include="Shader\lightCubeFragment.shader">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="Shader\lightCubeVertex.shader">
+      <Filter>Shader</Filter>
+    </None>
   </ItemGroup>
 </Project>

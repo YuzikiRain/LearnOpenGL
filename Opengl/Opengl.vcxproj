@@ -155,6 +155,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\fragment.shader" />
+    <None Include="Shader\lightCubeFragment.shader" />
+    <None Include="Shader\lightCubeVertex.shader" />
     <None Include="Shader\vertex.shader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

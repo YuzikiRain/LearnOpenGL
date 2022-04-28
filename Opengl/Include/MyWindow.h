@@ -23,7 +23,7 @@ const float sensitivity = 0.05f;
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 
 // lighting
-glm::vec3 lightPosition(1.2f, 1.0f, 2.0f);
+glm::vec3 lightPosition(5.2f, 1.0f, -5.0f);
 glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
@@ -74,9 +74,10 @@ private:
 	unsigned int VAO;
 	unsigned int VBO;
 	unsigned int EBO;
-	Shader* shader;
+	Shader shader;
+	Shader lightingShader;
 
-	glm::vec3 cameraPosition = glm::vec3(0.0f, 0.0f, 3.0f);
+	glm::vec3 cameraPosition = glm::vec3(0.0f, 0.0f, 10.0f);
 	glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
 	float fov = 45.0f;
@@ -141,7 +142,8 @@ public:
 
 	void InitShader()
 	{
-		shader = new  Shader("./Shader/vertex.shader", "./Shader/fragment.shader");
+		shader = Shader("./Shader/vertex.shader", "./Shader/fragment.shader");
+		lightingShader = Shader("./Shader/lightCubeVertex.shader", "./Shader/lightCubeFragment.shader");
 	}
 
 	void InitVertices()
@@ -233,6 +235,19 @@ public:
 		//glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
 		//glEnableVertexAttribArray(1);
 
+
+#pragma region MyRegion
+
+		unsigned int lightCubeVAO;
+		glGenVertexArrays(1, &lightCubeVAO);
+		glBindVertexArray(lightCubeVAO);
+
+		glBindBuffer(GL_ARRAY_BUFFER, VBO);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+		glEnableVertexAttribArray(0);
+
+#pragma endregion
+
 		// 解绑
 		// note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex attribute's bound vertex buffer object so afterwards we can safely unbind
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -313,15 +328,9 @@ public:
 
 			glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			// 使用（激活）着色器程序对象，接下来每个着色器调用和渲染调用都会使用该着色器程序对象
-			shader->use();
-			// 必须激活着色器程序对象之后才能进行设置uniform变量的操作
-			//glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+
 			glm::mat4 view = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
 			glm::mat4 projection = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-			//float camX = cos(glfwGetTime()) * radius;
-			//float camZ = sin(glfwGetTime()) * radius;
-			//cameraPosition = glm::vec3(camX, 0.0f, camZ);
 			view = glm::lookAt(
 				glm::vec3(cameraPosition),
 				cameraPosition + cameraFront,
@@ -329,8 +338,30 @@ public:
 				glm::vec3(cameraUp)
 			);
 			projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-			shader->setMatrix4("view", view);
-			shader->setMatrix4("projection", projection);
+
+#pragma region 光源
+
+			// 光源位置、颜色
+			lightingShader.use();
+			glm::mat4 model = glm::mat4(1.0f);
+			model = glm::translate(model, lightPosition);
+			lightingShader.setMatrix4("model", model);
+			lightingShader.setMatrix4("view", view);
+			lightingShader.setMatrix4("projection", projection);
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+
+#pragma endregion
+
+
+
+			// 使用（激活）着色器程序对象，接下来每个着色器调用和渲染调用都会使用该着色器程序对象
+			shader.use();
+			// 必须激活着色器程序对象之后才能进行设置uniform变量的操作
+			shader.setVector3("lightPositionWS", lightPosition);
+			shader.setVector3("lightColor", lightColor);
+			shader.setVector3("viewPositionWS", cameraPosition);
+			shader.setMatrix4("view", view);
+			shader.setMatrix4("projection", projection);
 
 			// 先设置当前激活的纹理单元
 			glActiveTexture(GL_TEXTURE0);
@@ -339,21 +370,19 @@ public:
 			// 同上
 			glActiveTexture(GL_TEXTURE1);
 			glBindTexture(GL_TEXTURE_2D, textures[1]);
-			shader->setInt("texture0", 0);
-			shader->setInt("texture1", 1);
-
-			// 光源位置、颜色
-			shader->setVector3("lightPositionWS", lightPosition);
-			shader->setVector3("lightColor", lightColor);
+			shader.setInt("texture0", 0);
+			shader.setInt("texture1", 1);
 
 			glBindVertexArray(VAO);
+
 			for (int i = 0; i < 10; i++)
 			{
+				shader.setVector3("tintColor", glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 				glm::mat4 model = glm::mat4(1.0f);
 				model = glm::translate(model, cubePositions[i]);
 				float angle = 20.0f * i;
 				//model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-				shader->setMatrix4("model", model);
+				shader.setMatrix4("model", model);
 				glDrawArrays(GL_TRIANGLES, 0, 36);
 			}
 			//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -368,13 +397,8 @@ public:
 		glDeleteVertexArrays(1, &VAO);
 		glDeleteBuffers(1, &VBO);
 		glDeleteBuffers(1, &EBO);
-		glDeleteProgram(shader->ID);
+		glDeleteProgram(shader.ID);
 
 		glfwTerminate();
-	}
-
-	~MyWindow()
-	{
-		delete shader;
 	}
 };
