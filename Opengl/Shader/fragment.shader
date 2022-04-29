@@ -32,7 +32,7 @@ void main()
 	vec3 viewDirection = normalize(viewPositionWS - fragmentPositionWS);
 	vec3 reflectDirection = reflect(-lightDirection, normal);
 	float specular = pow(max(dot(viewDirection, reflectDirection), .0f), 64);
-	float specularStrength = 2f;
+	float specularStrength = 2.0f;
 	vec3 specularColor = specularStrength * specular * lightColor;
 
 	vec3 result = objectColor * (diffuseColor + specularColor + ambient);
