@@ -1,9 +1,9 @@
 #pragma once
 
 #include <imgui.h>
-#include <imgui_impl_glfw.h>
-#include <imgui_impl_opengl2.h>
-#include <imgui_impl_opengl3.h>
+#include <backends/imgui_impl_glfw.h>
+#include <backends/imgui_impl_opengl2.h>
+#include <backends/imgui_impl_opengl3.h>
 #include <stdio.h>
 #include <Windows.h>
 #include <tchar.h>
@@ -415,9 +415,10 @@ public:
 			}
 			//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
-			// 1. Show the big demo window// (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
-			if (show_demo_window)
-				ImGui::ShowDemoWindow(&show_demo_window);
+			bool a = true;
+			ImGui::Begin("My First Tool", &a, ImGuiWindowFlags_MenuBar);
+			ImGui::Text("position: %.2f, %.2f, %.2f", cameraPosition.x, cameraPosition.y, cameraPosition.z);
+			ImGui::End();
 
 			// Rendering
 			ImGui::Render();
