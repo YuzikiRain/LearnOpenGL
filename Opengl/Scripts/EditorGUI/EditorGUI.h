@@ -5,7 +5,7 @@
 #include <backends/imgui_impl_opengl2.h>
 #include <backends/imgui_impl_opengl3.h>
 #include <stdio.h>
-#include <Windows.h>
+//#include <Windows.h>
 #include <tchar.h>
 #ifdef __APPLE__
 #define GL_SILENCE_DEPRECATION
@@ -54,7 +54,7 @@ public:
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 
-		ImGui::DockSpaceOverViewport();
+		//ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
 
 		if (ImGui::BeginMainMenuBar())
 		{
@@ -67,10 +67,6 @@ public:
 					{
 						window.Open();
 					}
-				}
-				if (ImGui::MenuItem("Inspector"))
-				{
-					inspector->Open();
 				}
 				ImGui::EndMenu();
 			}

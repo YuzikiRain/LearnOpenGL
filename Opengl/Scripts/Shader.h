@@ -77,7 +77,7 @@ public:
 
 #pragma region 设置uniform变量
 
-	void SetBool(const std::string& name, bool value) const
+	void setBool(const std::string& name, bool value) const
 	{
 		glUniform1i(glGetUniformLocation(ID, name.c_str()), (int)value);
 	}

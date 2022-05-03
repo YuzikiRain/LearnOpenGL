@@ -22,6 +22,9 @@
     <Filter Include="imgui">
       <UniqueIdentifier>{78e877a5-2d80-4031-9ffa-8818f1bdd9b3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Model">
+      <UniqueIdentifier>{8877eec5-23bf-4943-adfb-b6578f5eafe3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -115,6 +118,12 @@
     </ClInclude>
     <ClInclude Include="Scripts\EditorGUI\Object.h">
       <Filter>EditorGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Model\Mesh.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\Model\Model.h">
+      <Filter>Model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

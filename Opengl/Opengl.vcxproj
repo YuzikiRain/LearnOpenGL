@@ -125,7 +125,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp-vc142-mtd.dll;assimp-vc142-mtd.lib;glfw3.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\UnityProject\LearnOpenGL\Opengl\dlls;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -175,6 +176,8 @@
     <ClInclude Include="Scripts\EditorGUI\Object.h" />
     <ClInclude Include="Scripts\EditorGUI\Selection.h" />
     <ClInclude Include="Scripts\EditorGUI\Window.h" />
+    <ClInclude Include="Scripts\Model\Mesh.h" />
+    <ClInclude Include="Scripts\Model\Model.h" />
     <ClInclude Include="Scripts\MyWindow.h" />
     <ClInclude Include="Scripts\Shader.h" />
   </ItemGroup>

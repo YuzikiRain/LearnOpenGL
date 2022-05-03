@@ -4,8 +4,8 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
+//#define STB_IMAGE_IMPLEMENTATION
+//#include "stb_image.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -13,6 +13,7 @@
 
 #include <Shader.h>
 #include <EditorGUI/EditorGUI.h>
+#include <Model/Model.h>
 
 const glm::vec4 clearColor = glm::vec4(.1f, .3f, .1f, 1.0f);
 const unsigned int SCR_WIDTH = 800;
@@ -112,9 +113,6 @@ private:
 	}
 
 public:
-	MyWindow()
-	{}
-
 	int Initialize()
 	{
 		glfwInit();
@@ -141,7 +139,7 @@ public:
 
 		glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 		glfwSetCursorPosCallback(window, mouse_callback);
-		//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 		return 0;
 	}
@@ -330,6 +328,8 @@ public:
 
 		EditorGUI::InitImgui(window);
 
+		Model testModel = Model("./Assets/Model/nanosuit/nanosuit.obj");
+
 		while (!glfwWindowShouldClose(window))
 		{
 			CaculateDeltaTime();
@@ -394,7 +394,14 @@ public:
 			}
 			//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
-			EditorGUI:: DrawImgui();
+			// render the loaded model
+			//glm::mat4 model = glm::mat4(1.0f);
+			model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
+			model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));	// it's a bit too big for our scene, so scale it down
+			shader.setMatrix4("model", model);
+			testModel.Draw(shader);
+
+			EditorGUI::DrawImgui();
 
 			glfwSwapBuffers(window);
 			glfwPollEvents();
