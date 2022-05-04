@@ -54,10 +54,11 @@ public:
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 
-		//ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
+		ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
 
 		if (ImGui::BeginMainMenuBar())
 		{
+
 			if (ImGui::BeginMenu("Window"))
 			{
 				for (size_t i = 0; i < windows.size(); i++)

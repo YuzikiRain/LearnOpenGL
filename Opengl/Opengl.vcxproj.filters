@@ -16,14 +16,29 @@
     <Filter Include="Shader">
       <UniqueIdentifier>{9a66cfd7-dc4c-4806-b535-ad01a42e199f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="EditorGUI">
-      <UniqueIdentifier>{b891d26a-ee44-45d9-8918-f12db8a5d90d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="imgui">
       <UniqueIdentifier>{78e877a5-2d80-4031-9ffa-8818f1bdd9b3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Model">
       <UniqueIdentifier>{8877eec5-23bf-4943-adfb-b6578f5eafe3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor">
+      <UniqueIdentifier>{cbaeffc1-2fdd-47ae-85de-cd8cb46c7e92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor\EditorGUI">
+      <UniqueIdentifier>{b891d26a-ee44-45d9-8918-f12db8a5d90d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ECS">
+      <UniqueIdentifier>{a429988b-4937-4f1d-80a2-4541f896e957}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ECS\Component">
+      <UniqueIdentifier>{a2dc6437-54d8-45b0-8b1c-bdd3923bd061}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ECS\System">
+      <UniqueIdentifier>{be82d0e2-d801-49fe-b1a7-fef724a0a0b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ECS\Entity">
+      <UniqueIdentifier>{da86f644-49e0-465c-9cdd-b0a9c747ce40}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -63,13 +78,13 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\EditorGUI\EditorGUI.h">
-      <Filter>EditorGUI</Filter>
+      <Filter>Editor\EditorGUI</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\EditorGUI\Inspector.h">
-      <Filter>EditorGUI</Filter>
+      <Filter>Editor\EditorGUI</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\EditorGUI\Window.h">
-      <Filter>EditorGUI</Filter>
+      <Filter>Editor\EditorGUI</Filter>
     </ClInclude>
     <ClInclude Include="imgui\imconfig.h">
       <Filter>imgui</Filter>
@@ -111,19 +126,40 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\EditorGUI\Hierarchy.h">
-      <Filter>EditorGUI</Filter>
+      <Filter>Editor\EditorGUI</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\EditorGUI\Selection.h">
-      <Filter>EditorGUI</Filter>
+      <Filter>Editor\EditorGUI</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\EditorGUI\Object.h">
-      <Filter>EditorGUI</Filter>
+      <Filter>Editor\EditorGUI</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\Model\Mesh.h">
       <Filter>Model</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\Model\Model.h">
       <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformComponent.h">
+      <Filter>ECS\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraSystem.h">
+      <Filter>ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderSystem.h">
+      <Filter>ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Root.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="System.h">
+      <Filter>ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="InputSystem.h">
+      <Filter>ECS\System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

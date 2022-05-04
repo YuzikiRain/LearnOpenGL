@@ -125,8 +125,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>assimp-vc142-mtd.dll;assimp-vc142-mtd.lib;glfw3.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>D:\UnityProject\LearnOpenGL\Opengl\dlls;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>assimp-vc142-mtd.lib;glfw3.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -158,6 +158,8 @@
     <ClCompile Include="src\glad.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="CameraSystem.h" />
     <ClInclude Include="imgui\backends\imgui_impl_glfw.h" />
     <ClInclude Include="imgui\backends\imgui_impl_metal.h" />
     <ClInclude Include="imgui\backends\imgui_impl_opengl2.h" />
@@ -170,6 +172,9 @@
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
     <ClInclude Include="Include\stb_image.h" />
+    <ClInclude Include="InputSystem.h" />
+    <ClInclude Include="RenderSystem.h" />
+    <ClInclude Include="Root.h" />
     <ClInclude Include="Scripts\EditorGUI\EditorGUI.h" />
     <ClInclude Include="Scripts\EditorGUI\Hierarchy.h" />
     <ClInclude Include="Scripts\EditorGUI\Inspector.h" />
@@ -180,6 +185,8 @@
     <ClInclude Include="Scripts\Model\Model.h" />
     <ClInclude Include="Scripts\MyWindow.h" />
     <ClInclude Include="Scripts\Shader.h" />
+    <ClInclude Include="System.h" />
+    <ClInclude Include="TransformComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\fragment.shader" />
