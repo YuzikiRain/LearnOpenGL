@@ -156,7 +156,8 @@
     <ClCompile Include="imgui\imgui_tables.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="src\BorderlessEngine.cpp" />
+    <ClCompile Include="Scripts\BorderlessEngine.cpp" />
+    <ClCompile Include="Scripts\ECS\System\InputSystem.cpp" />
     <ClCompile Include="src\glad.c" />
   </ItemGroup>
   <ItemGroup>

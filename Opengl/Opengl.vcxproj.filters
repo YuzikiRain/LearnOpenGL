@@ -75,7 +75,10 @@
     <ClCompile Include="imgui\imgui_widgets.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
-    <ClCompile Include="src\BorderlessEngine.cpp">
+    <ClCompile Include="Scripts\ECS\System\InputSystem.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\BorderlessEngine.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

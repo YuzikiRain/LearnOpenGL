@@ -1,5 +1,7 @@
 #pragma once
 #include<ECS/System/System.h>
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 
 namespace BorderlessEngine {
 	class InputSystem : System
