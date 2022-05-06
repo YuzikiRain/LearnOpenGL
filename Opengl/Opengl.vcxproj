@@ -82,6 +82,7 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>./include;./Scripts;./imgui;$(IncludePath)</IncludePath>
     <LibraryPath>./lib;$(LibraryPath)</LibraryPath>
+    <SourcePath>D:\UnityProject\LearnOpenGL\Opengl\Scripts;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -155,11 +156,11 @@
     <ClCompile Include="imgui\imgui_tables.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\BorderlessEngine.cpp" />
     <ClCompile Include="src\glad.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="CameraSystem.h" />
     <ClInclude Include="imgui\backends\imgui_impl_glfw.h" />
     <ClInclude Include="imgui\backends\imgui_impl_metal.h" />
     <ClInclude Include="imgui\backends\imgui_impl_opengl2.h" />
@@ -172,9 +173,11 @@
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
     <ClInclude Include="Include\stb_image.h" />
-    <ClInclude Include="InputSystem.h" />
-    <ClInclude Include="RenderSystem.h" />
-    <ClInclude Include="Root.h" />
+    <ClInclude Include="Scripts\ECS\Component\TransformComponent.h" />
+    <ClInclude Include="Scripts\ECS\System\CameraSystem.h" />
+    <ClInclude Include="Scripts\ECS\System\InputSystem.h" />
+    <ClInclude Include="Scripts\ECS\System\RenderSystem.h" />
+    <ClInclude Include="Scripts\ECS\System\System.h" />
     <ClInclude Include="Scripts\EditorGUI\EditorGUI.h" />
     <ClInclude Include="Scripts\EditorGUI\Hierarchy.h" />
     <ClInclude Include="Scripts\EditorGUI\Inspector.h" />
@@ -185,8 +188,6 @@
     <ClInclude Include="Scripts\Model\Model.h" />
     <ClInclude Include="Scripts\MyWindow.h" />
     <ClInclude Include="Scripts\Shader.h" />
-    <ClInclude Include="System.h" />
-    <ClInclude Include="TransformComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\fragment.shader" />

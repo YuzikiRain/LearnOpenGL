@@ -40,6 +40,9 @@
     <Filter Include="ECS\Entity">
       <UniqueIdentifier>{da86f644-49e0-465c-9cdd-b0a9c747ce40}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Camera">
+      <UniqueIdentifier>{b7a33688-72aa-4586-8e7c-6b8da9b6fbc2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -71,6 +74,9 @@
     </ClCompile>
     <ClCompile Include="imgui\imgui_widgets.cpp">
       <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BorderlessEngine.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -140,26 +146,23 @@
     <ClInclude Include="Scripts\Model\Model.h">
       <Filter>Model</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Editor</Filter>
+    <ClInclude Include="Scripts\ECS\System\CameraSystem.h">
+      <Filter>ECS\System</Filter>
     </ClInclude>
-    <ClInclude Include="TransformComponent.h">
+    <ClInclude Include="Scripts\ECS\System\InputSystem.h">
+      <Filter>ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\ECS\System\RenderSystem.h">
+      <Filter>ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\ECS\System\System.h">
+      <Filter>ECS\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\ECS\Component\TransformComponent.h">
       <Filter>ECS\Component</Filter>
     </ClInclude>
-    <ClInclude Include="CameraSystem.h">
-      <Filter>ECS\System</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderSystem.h">
-      <Filter>ECS\System</Filter>
-    </ClInclude>
-    <ClInclude Include="Root.h">
-      <Filter>源文件</Filter>
-    </ClInclude>
-    <ClInclude Include="System.h">
-      <Filter>ECS\System</Filter>
-    </ClInclude>
-    <ClInclude Include="InputSystem.h">
-      <Filter>ECS\System</Filter>
+    <ClInclude Include="Camera.h">
+      <Filter>Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

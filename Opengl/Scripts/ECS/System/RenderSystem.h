@@ -1,5 +1,6 @@
 #pragma once
-#include <MyWindow.h>
+#include <iostream>
+#include <EditorGUI/EditorGUI.h>
 
 namespace BorderlessEngine {
 	class RenderSystem : System
@@ -7,31 +8,8 @@ namespace BorderlessEngine {
 	public:
 		bool Initialize()
 		{
-			glfwInit();
-			glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-			glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-			window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
-			if (window == NULL)
-			{
-				std::cout << "Failed to create GLFW window" << std::endl;
-				glfwTerminate();
-				return -1;
-			}
-			glfwMakeContextCurrent(window);
-
-			if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-			{
-				std::cout << "Failed to initialize GLAD" << std::endl;
-				return -1;
-			}
-
-			glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
-
-			glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-			glfwSetCursorPosCallback(window, mouse_callback);
-			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+			EditorGUI::InitImgui(window);
+			return true;
 		}
 		void Update()
 		{
@@ -44,38 +22,18 @@ namespace BorderlessEngine {
 			// Ïß¿òÄ£Ê½
 			//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-			EditorGUI::InitImgui(window);
-
-			Model testModel = Model("./Assets/Model/nanosuit/nanosuit.obj");
-
-			if (!glfwWindowShouldClose(window)) return;
-
-			glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
+			glClearColor(0, 0, 0, 0);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-			glm::mat4 view = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-			glm::mat4 projection = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-			view = glm::lookAt(
-				glm::vec3(cameraPosition),
-				cameraPosition + cameraFront,
-				//glm::vec3(targetPosition),
-				glm::vec3(cameraUp)
-			);
-			projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-			glm::mat4 model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
-			model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));	// it's a bit too big for our scene, so scale it down
-			shader.setMatrix4("model", model);
-			testModel.Draw(shader);
 
 			EditorGUI::DrawImgui();
 
 			glfwSwapBuffers(window);
-			glfwPollEvents();
-
 		}
-
+		void Destroy()
+		{
+			EditorGUI::ShutDownEditorGUI();
+		}
 	private:
-		GLFWwindow* window;
-	};
 
+	};
 }
