@@ -9,5 +9,6 @@ namespace BorderlessEngine {
 	void Quit();
 	void CaculateDeltaTime();
 	void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-	GLFWwindow* window;
+	void mouse_callback(GLFWwindow* window, double xposIn, double yposIn);
+	GLFWwindow* window = 0;
 }

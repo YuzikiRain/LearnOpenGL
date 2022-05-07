@@ -1,7 +1,7 @@
 #include<ECS/System/InputSystem.h>
-#include <BorderlessEngine.h>
 
 namespace BorderlessEngine {
+	extern GLFWwindow* window;
 	bool InputSystem::Initialize()
 	{
 		glfwSetCursorPosCallback(window, mouse_callback);
