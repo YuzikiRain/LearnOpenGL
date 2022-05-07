@@ -7,9 +7,9 @@ namespace BorderlessEngine {
 	class InputSystem : System
 	{
 	public:
-		bool Initialize();
-		void Update();
-		void Destroy();
+		static bool Initialize();
+		static void Update();
+		static void Destroy();
 
 	private:
 		void processInput(GLFWwindow* window);

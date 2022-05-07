@@ -158,6 +158,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Scripts\BorderlessEngine.cpp" />
     <ClCompile Include="Scripts\ECS\System\InputSystem.cpp" />
+    <ClCompile Include="Scripts\ECS\System\RenderSystem.cpp" />
+    <ClCompile Include="Scripts\EditorGUI\EditorGUI.cpp" />
     <ClCompile Include="src\glad.c" />
   </ItemGroup>
   <ItemGroup>

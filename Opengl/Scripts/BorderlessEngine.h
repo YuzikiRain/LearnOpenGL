@@ -7,8 +7,8 @@ namespace BorderlessEngine {
 	void InitSystems();
 	void UpdateSystems();
 	void Quit();
+	bool ShouldQuit();
 	void CaculateDeltaTime();
 	void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 	void mouse_callback(GLFWwindow* window, double xposIn, double yposIn);
-	GLFWwindow* window = 0;
 }

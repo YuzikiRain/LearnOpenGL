@@ -5,7 +5,7 @@ namespace BorderlessEngine {
 	bool InputSystem::Initialize()
 	{
 		glfwSetCursorPosCallback(window, mouse_callback);
-		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		return 1;
 	}
 	void InputSystem::Update()
@@ -18,29 +18,19 @@ namespace BorderlessEngine {
 	}
 	void InputSystem::processInput(GLFWwindow* window)
 	{
+		//		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+//			glfwSetWindowShouldClose(window, true);
+
+//		//float cameraSpeed = static_cast<float>(speed * deltaTime);
+//		//if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+//		//	cameraPosition += cameraSpeed * cameraFront;
+//		//if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+//		//	cameraPosition -= cameraSpeed * cameraFront;
+//		//if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+//		//	cameraPosition -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+//		//if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+//		//	cameraPosition += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 	}
-	//class InputSystem : System
-	//{
-	//public:
-
-
-	//private:
-	//	void processInput(GLFWwindow* window)
-	//	{
-	//		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-	//			glfwSetWindowShouldClose(window, true);
-
-	//		//float cameraSpeed = static_cast<float>(speed * deltaTime);
-	//		//if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-	//		//	cameraPosition += cameraSpeed * cameraFront;
-	//		//if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-	//		//	cameraPosition -= cameraSpeed * cameraFront;
-	//		//if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-	//		//	cameraPosition -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-	//		//if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-	//		//	cameraPosition += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-	//	}
-	//};
 
 	void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
 	{

@@ -2,9 +2,11 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <ECS/System/InputSystem.h>
+#include <ECS/System/RenderSystem.h>
 namespace BorderlessEngine
 {
-	extern GLFWwindow* window;
+	GLFWwindow* window;
 	const unsigned int SCR_WIDTH = 800;
 	const unsigned int SCR_HEIGHT = 600;
 
@@ -33,23 +35,34 @@ namespace BorderlessEngine
 		glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
 
 		glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-		glfwSetCursorPosCallback(window, mouse_callback);
-		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 		return 0;
 	}
 
-	void InitSystems()
+	void BorderlessEngine::InitSystems()
 	{
-
+		InputSystem::Initialize();
+		RenderSystem::Initialize();
 	}
 
-	void UpdateSystems()
+	void BorderlessEngine::UpdateSystems()
 	{
+		while (!BorderlessEngine::ShouldQuit())
+		{
+			InputSystem::Update();
+			RenderSystem::Update();
+		}
+	}
+
+	bool BorderlessEngine::ShouldQuit()
+	{
+		return glfwWindowShouldClose(window);
 	}
 
 	void Quit()
 	{
+		InputSystem::Destroy();
+		RenderSystem::Destroy();
 	}
 
 	void CaculateDeltaTime()
@@ -58,11 +71,5 @@ namespace BorderlessEngine
 
 	void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 	{
-	}
-
-	void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
-	{
-		float xpos = static_cast<float>(xposIn);
-		float ypos = static_cast<float>(yposIn);
 	}
 }
