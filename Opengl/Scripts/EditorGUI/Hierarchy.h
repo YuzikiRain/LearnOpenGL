@@ -15,6 +15,40 @@ namespace Bordless
 			}
 			void  Draw()
 			{
+				if (ImGui::BeginPopupContextWindow()) {
+					if (ImGui::BeginMenu("Create"))
+					{
+						if (ImGui::MenuItem("GameObject"))
+						{
+
+						}
+						ImGui::EndMenu();
+					}
+					ImGui::EndPopup();
+				}
+
+				//if (ImGui::BeginPopupContextItem())
+				//{
+				//	ImGui::Text("test");
+
+				//	if (ImGui::BeginMenu("Create"))
+				//	{
+				//		if (ImGui::MenuItem("GameObject"))
+				//		{
+				//			if (ImGui::MenuItem("GameObject2"))
+				//			{
+				//				
+				//			}
+				//		}
+				//		ImGui::EndMenu();
+				//	}
+
+
+				//	if (ImGui::Button("Close"))
+				//		ImGui::CloseCurrentPopup();
+				//	ImGui::EndPopup();
+				//}
+
 				if (ImGui::TreeNode("Basic trees"))
 				{
 					for (int i = 0; i < 5; i++)
@@ -27,7 +61,14 @@ namespace Bordless
 						if (ImGui::TreeNode((void*)(intptr_t)i, "Child %d", i))
 						{
 							//Selection::current = ;
-
+							if (ImGui::BeginPopupContextItem())
+							{
+								ImGui::Text("Edit name:");
+								//ImGui::InputText("##edit", name, IM_ARRAYSIZE(name));
+								if (ImGui::Button("Close"))
+									ImGui::CloseCurrentPopup();
+								ImGui::EndPopup();
+							}
 							ImGui::TreePop();
 						}
 					}

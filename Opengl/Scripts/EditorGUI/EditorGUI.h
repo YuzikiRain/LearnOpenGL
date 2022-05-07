@@ -33,7 +33,5 @@ private:
 	static	Inspector* inspector;
 	static	Hierarchy* hierarchy;
 	static vector<Window*> windows;
-
-	static void DrawFullScreen(bool* p_open);
 };
 
