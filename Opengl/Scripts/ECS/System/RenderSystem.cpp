@@ -11,13 +11,13 @@ namespace BorderlessEngine {
 	}
 	void RenderSystem::Update()
 	{
-		// ¿ªÆôÉî¶È²âÊÔ
+		// å¼€å¯æ·±åº¦æµ‹è¯•
 		glEnable(GL_DEPTH_TEST);
-		//// ¿ªÆôÌŞ³ı
+		//// å¼€å¯å‰”é™¤
 		//glEnable(GL_CULL_FACE);
-		//// ¿ªÆô±³ÃæÌŞ³ı
+		//// å¼€å¯èƒŒé¢å‰”é™¤
 		//glCullFace(GL_BACK);
-		// Ïß¿òÄ£Ê½
+		// çº¿æ¡†æ¨¡å¼
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 		glClearColor(0, 0, 0, 0);

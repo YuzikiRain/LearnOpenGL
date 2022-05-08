@@ -2,13 +2,24 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <cmath>
 #include <ECS/System/InputSystem.h>
 #include <ECS/System/RenderSystem.h>
+#include <chrono>
+#include <thread>
+
 namespace BorderlessEngine
 {
 	GLFWwindow* window;
 	const unsigned int SCR_WIDTH = 800;
 	const unsigned int SCR_HEIGHT = 600;
+
+	double targetFrameRate = 60.0f;
+	double realTime = 0.0;
+	double frameTime = 0.0;
+	double accumulator = 0.0;
+	double timeScale = 1.0;
+	double targetTime = 0.0;
 
 	bool InitializeWindow()
 	{
@@ -45,12 +56,33 @@ namespace BorderlessEngine
 		RenderSystem::Initialize();
 	}
 
-	void BorderlessEngine::UpdateSystems()
+	void BorderlessEngine::GameLoop()
 	{
 		while (!BorderlessEngine::ShouldQuit())
 		{
 			InputSystem::Update();
+			// 渲染可能会消耗大量时间，放在模拟时间间隔之外以避免死亡螺旋
 			RenderSystem::Update();
+
+			double currentTime = glfwGetTime();
+			if (currentTime < targetTime) continue;
+			frameTime = currentTime - realTime;
+			realTime = currentTime;
+
+			//accumulator += frameTime;
+			//// 模拟时间间隔，剩余的未模拟时间会累计到下一帧
+			//while (accumulator < currentTime)
+			//{
+			//	InputSystem::FixedUpdate();
+			//	accumulator += interval;
+			//}
+
+			targetTime += GetFrameInterval();
+			// 休眠剩余到下一次Update的时间
+			if (currentTime < targetTime)
+			{
+				std::this_thread::sleep_for(std::chrono::milliseconds((long)((targetTime - currentTime) * 1000)));
+			}
 		}
 	}
 
@@ -59,17 +91,23 @@ namespace BorderlessEngine
 		return glfwWindowShouldClose(window);
 	}
 
+	double GetFrameInterval()
+	{
+		return 1.0 / targetFrameRate;
+	}
+	double GetFrameRate()
+	{
+		return 1.0 / frameTime;
+	}
+
 	void Quit()
 	{
 		InputSystem::Destroy();
 		RenderSystem::Destroy();
 	}
 
-	void CaculateDeltaTime()
-	{
-	}
-
 	void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 	{
+		//glViewport(0, 0, width, height);
 	}
 }

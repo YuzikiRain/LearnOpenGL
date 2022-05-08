@@ -17,21 +17,37 @@
 
 #include <vector>
 
-// 所有需要的editorwindow子类
+// 鎵�鏈夐渶瑕佺殑editorwindow瀛愮被
 #include<EditorGUI/Inspector.h>
 #include<EditorGUI/Hierarchy.h>
+#include <Scene.h>
+
 using namespace Bordless::EditorGUI;
 using namespace std;
 
-class EditorGUI
-{
-public:
-	static void InitImgui(GLFWwindow* window);
-	static void DrawImgui();
-	static void ShutDownEditorGUI();
-private:
-	static	Inspector* inspector;
-	static	Hierarchy* hierarchy;
-	static vector<Window*> windows;
-};
+namespace BorderlessEngine {
+	class EditorGUI
+	{
+	public:
+		static void InitImgui(GLFWwindow* window);
+		static void DrawImgui();
+		static void ShutDownEditorGUI();
 
+		/// <summary>
+		/// 鎵撳紑鍦烘櫙
+		/// </summary>
+		static void OpenScene();
+		/// <summary>
+		/// 鍒涘缓鏂癎ameObject
+		/// </summary>
+		static void CreateNewGameObject();
+		static void NewScene();
+		static void SerializeScene();
+		static void DeserializeScene(YAML::Node scene);
+	private:
+		static Inspector* inspector;
+		static Hierarchy* hierarchy;
+		static Scene currentScene;
+		static vector<Window*> windows;
+	};
+}

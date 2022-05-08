@@ -126,7 +126,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>assimp-vc142-mtd.lib;glfw3.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>yaml-cppd.lib;assimp-vc142-mtd.lib;glfw3.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -160,6 +160,8 @@
     <ClCompile Include="Scripts\ECS\System\InputSystem.cpp" />
     <ClCompile Include="Scripts\ECS\System\RenderSystem.cpp" />
     <ClCompile Include="Scripts\EditorGUI\EditorGUI.cpp" />
+    <ClCompile Include="Scripts\GameObject.cpp" />
+    <ClCompile Include="Scripts\Scene.cpp" />
     <ClCompile Include="src\glad.c" />
   </ItemGroup>
   <ItemGroup>
@@ -176,6 +178,8 @@
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
     <ClInclude Include="Include\stb_image.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="Scripts\BorderlessEngine.h" />
     <ClInclude Include="Scripts\ECS\Component\TransformComponent.h" />
     <ClInclude Include="Scripts\ECS\System\CameraSystem.h" />
     <ClInclude Include="Scripts\ECS\System\InputSystem.h" />
@@ -187,6 +191,7 @@
     <ClInclude Include="Scripts\EditorGUI\Object.h" />
     <ClInclude Include="Scripts\EditorGUI\Selection.h" />
     <ClInclude Include="Scripts\EditorGUI\Window.h" />
+    <ClInclude Include="Scripts\GameObject.h" />
     <ClInclude Include="Scripts\Model\Mesh.h" />
     <ClInclude Include="Scripts\Model\Model.h" />
     <ClInclude Include="Scripts\MyWindow.h" />

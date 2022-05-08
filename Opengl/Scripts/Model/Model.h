@@ -61,19 +61,19 @@ private:
 		processNode(scene->mRootNode, scene);
 	}
 	/// <summary>
-	/// µİ¹éµØ´¦ÀíÃ¿¸ö½Úµã£¬È¡µÃÍø¸ñĞÅÏ¢
+	/// é€’å½’åœ°å¤„ç†æ¯ä¸ªèŠ‚ç‚¹ï¼Œå–å¾—ç½‘æ ¼ä¿¡æ¯
 	/// </summary>
 	/// <param name="node"></param>
 	/// <param name="scene"></param>
 	void processNode(aiNode* node, const aiScene* scene)
 	{
-		// ´¦Àíµ±Ç°½ÚµãµÄÍø¸ñ
+		// å¤„ç†å½“å‰èŠ‚ç‚¹çš„ç½‘æ ¼
 		for (size_t i = 0; i < node->mNumMeshes; i++)
 		{
 			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 			meshes.push_back(processMesh(mesh, scene));
 		}
-		// ´¦Àí×Ó½Úµã
+		// å¤„ç†å­èŠ‚ç‚¹
 		for (size_t i = 0; i < node->mNumChildren; i++)
 		{
 			processNode(node->mChildren[i], scene);
@@ -88,7 +88,7 @@ private:
 
 		for (size_t i = 0; i < mesh->mNumVertices; i++)
 		{
-			// ´¦Àí¶¥µãÊôĞÔ£¨Î»ÖÃ¡¢·¨Ïß¡¢ÎÆÀí×ø±ê£©
+			// å¤„ç†é¡¶ç‚¹å±æ€§ï¼ˆä½ç½®ã€æ³•çº¿ã€çº¹ç†åæ ‡ï¼‰
 			Vertex vertex;
 			vertex.Position = glm::vec3(
 				mesh->mVertices[i].x,
@@ -98,21 +98,21 @@ private:
 				mesh->mNormals[i].x,
 				mesh->mNormals[i].y,
 				mesh->mNormals[i].z);
-			// Ä¿Ç°Ö»´¦ÀíµÚÒ»Ì×ÎÆÀí×ø±ê
+			// ç›®å‰åªå¤„ç†ç¬¬ä¸€å¥—çº¹ç†åæ ‡
 			vertex.TexCoords = glm::vec3(
 				mesh->mTextureCoords[0][i].x,
 				mesh->mTextureCoords[0][i].y,
 				mesh->mTextureCoords[0][i].z);
 			vertices.push_back(vertex);
 		}
-		// ´¦ÀíË÷Òı£¨ËùÓĞfaceµÄËùÓĞindex°´Ë³Ğò´æ´¢µ½indicesÀï¼´¿É£©
+		// å¤„ç†ç´¢å¼•ï¼ˆæ‰€æœ‰faceçš„æ‰€æœ‰indexæŒ‰é¡ºåºå­˜å‚¨åˆ°indicesé‡Œå³å¯ï¼‰
 		for (unsigned int i = 0; i < mesh->mNumFaces; i++)
 		{
 			aiFace face = mesh->mFaces[i];
 			for (unsigned int j = 0; j < face.mNumIndices; j++)
 				indices.push_back(face.mIndices[j]);
 		}
-		// ´¦Àí²ÄÖÊ
+		// å¤„ç†æè´¨
 		if (mesh->mMaterialIndex >= 0)
 		{
 			aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
@@ -133,7 +133,7 @@ private:
 		for (size_t i = 0; i < material->GetTextureCount(type); i++)
 		{
 			aiString str;
-			// material´æ´¢µÄtextureÂ·¾¶
+			// materialå­˜å‚¨çš„textureè·¯å¾„
 			material->GetTexture(type, i, &str);
 			Texture texture;
 			texture.id = TextureFromFile(str.C_Str(), directoryPath);

@@ -43,6 +43,9 @@
     <Filter Include="Camera">
       <UniqueIdentifier>{b7a33688-72aa-4586-8e7c-6b8da9b6fbc2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Serialize">
+      <UniqueIdentifier>{9640cbb5-b035-42e8-940d-d45f707ad765}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -78,13 +81,19 @@
     <ClCompile Include="Scripts\ECS\System\InputSystem.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\BorderlessEngine.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Scripts\ECS\System\RenderSystem.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Scripts\EditorGUI\EditorGUI.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\Scene.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\GameObject.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\BorderlessEngine.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -172,6 +181,15 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\BorderlessEngine.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Serialize</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\GameObject.h">
+      <Filter>Serialize</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

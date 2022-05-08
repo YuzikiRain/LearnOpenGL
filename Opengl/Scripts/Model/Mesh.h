@@ -57,7 +57,7 @@ public:
 		}
 		glActiveTexture(GL_TEXTURE0);
 
-		// »æÖÆÍø¸ñ
+		// ç»˜åˆ¶ç½‘æ ¼
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
@@ -77,7 +77,7 @@ private:
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
 
-		// ¶¥µãÊôÐÔ
+		// é¡¶ç‚¹å±žæ€§
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
 		glEnableVertexAttribArray(1);

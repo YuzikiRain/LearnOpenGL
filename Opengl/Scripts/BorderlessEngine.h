@@ -5,10 +5,16 @@
 namespace BorderlessEngine {
 	bool InitializeWindow();
 	void InitSystems();
-	void UpdateSystems();
+	void GameLoop();
 	void Quit();
 	bool ShouldQuit();
-	void CaculateDeltaTime();
 	void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-	void mouse_callback(GLFWwindow* window, double xposIn, double yposIn);
+	double GetFrameInterval();
+	double GetFrameRate();
+
+	extern double targetFrameRate;
+	extern double realTime;
+	extern double frameTime;
+	extern double accumulator;
+	extern double timeScale;
 }

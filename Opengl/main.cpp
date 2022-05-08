@@ -4,7 +4,7 @@ int main()
 {
 	BorderlessEngine::InitializeWindow();
 	BorderlessEngine::InitSystems();
-	BorderlessEngine::UpdateSystems();
+	BorderlessEngine::GameLoop();
 	BorderlessEngine::Quit();
 }
 

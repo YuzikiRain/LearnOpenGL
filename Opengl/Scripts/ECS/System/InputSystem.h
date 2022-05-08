@@ -9,11 +9,12 @@ namespace BorderlessEngine {
 	public:
 		static bool Initialize();
 		static void Update();
+		static void FixedUpdate();
 		static void Destroy();
 
 	private:
-		void processInput(GLFWwindow* window);
+		static void processInput(GLFWwindow* window);
+		static void mouse_callback(GLFWwindow* window, double xposIn, double yposIn);
 	};
 
-	void mouse_callback(GLFWwindow* window, double xposIn, double yposIn);
 }
