@@ -9,11 +9,6 @@ namespace BorderlessEngine
 
 	Scene::Scene(const char* name = "new scene")
 	{
-
-	}
-
-	Scene::Scene(const char* name = "new scene", std::list<GameObject> gameObjects)
-	{
 		this->name = name;
 	}
 }

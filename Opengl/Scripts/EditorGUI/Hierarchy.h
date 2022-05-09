@@ -27,28 +27,6 @@ namespace Bordless
 					ImGui::EndPopup();
 				}
 
-				//if (ImGui::BeginPopupContextItem())
-				//{
-				//	ImGui::Text("test");
-
-				//	if (ImGui::BeginMenu("Create"))
-				//	{
-				//		if (ImGui::MenuItem("GameObject"))
-				//		{
-				//			if (ImGui::MenuItem("GameObject2"))
-				//			{
-				//				
-				//			}
-				//		}
-				//		ImGui::EndMenu();
-				//	}
-
-
-				//	if (ImGui::Button("Close"))
-				//		ImGui::CloseCurrentPopup();
-				//	ImGui::EndPopup();
-				//}
-
 				if (ImGui::TreeNode("Basic trees"))
 				{
 					for (int i = 0; i < 5; i++)

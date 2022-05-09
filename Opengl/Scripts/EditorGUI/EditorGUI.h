@@ -21,6 +21,7 @@
 #include<EditorGUI/Inspector.h>
 #include<EditorGUI/Hierarchy.h>
 #include <Scene.h>
+#include <yaml-cpp/yaml.h>
 
 using namespace Bordless::EditorGUI;
 using namespace std;

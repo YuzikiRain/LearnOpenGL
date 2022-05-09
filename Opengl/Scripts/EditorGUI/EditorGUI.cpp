@@ -5,7 +5,6 @@
 #include <windows.h>
 #include <shobjidl.h> 
 #include <yaml-cpp/yaml.h>
-#include <imgui_demo.cpp>
 
 void BorderlessEngine::EditorGUI::InitImgui(GLFWwindow* window)
 {
@@ -36,7 +35,15 @@ void BorderlessEngine::EditorGUI::DrawImgui()
 	ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
 
 	static bool isFrameRateOpen = false;
-	if (ImGui::Begin("frame rate", &isFrameRateOpen, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar))
+	ImGuiWindowFlags window_flags =
+		ImGuiWindowFlags_NoMove |
+		ImGuiWindowFlags_NoTitleBar |
+		ImGuiWindowFlags_NoDecoration |					// 不需要标题、不需要调整大小、不需要滚动条、不需要折叠
+		ImGuiWindowFlags_AlwaysAutoResize |				// 自动调整大小
+		ImGuiWindowFlags_NoSavedSettings |				// 不需要保存会加载布局信息
+		ImGuiWindowFlags_NoFocusOnAppearing |			// 显示时不需要获取交点
+		ImGuiWindowFlags_NoNav;
+	if (ImGui::Begin("frame rate", &isFrameRateOpen, window_flags))
 	{
 		ImGui::InputDouble("targetFrameRate", &BorderlessEngine::targetFrameRate, 1.0f, 5.0f, "%.2f");
 		ImGui::Text("frame rate %.0lf", BorderlessEngine::GetFrameRate());
@@ -65,9 +72,6 @@ void BorderlessEngine::EditorGUI::DrawImgui()
 				}
 			}
 
-			static bool* p_open;
-			console.Draw("Console", p_open);
-			console.ClearLog();
 			ImGui::EndMenu();
 		}
 		ImGui::EndMainMenuBar();
@@ -176,11 +180,11 @@ void BorderlessEngine::EditorGUI::SerializeScene()
 	const char* path = "D:/UnityProject/LearnOpenGL/Opengl/Assets/Scene/scene1.txt";
 	//fstream  afile;
 	//afile.open(path, ios::out | ios::in);
-	ofstream fout("D:/UnityProject/LearnOpenGL/Opengl/Assets/Scene/scene1.txt");
-	YAML::Node scene = YAML::LoadFile(path);
-	scene["name"] = "test22222";
-	fout << scene;
-	fout.close();
+	//ofstream fout("D:/UnityProject/LearnOpenGL/Opengl/Assets/Scene/scene1.txt");
+	//YAML::Node scene = YAML::LoadFile(path);
+	//scene["name"] = "test22222";
+	//fout << scene;
+	//fout.close();
 }
 
 void BorderlessEngine::EditorGUI::DeserializeScene(YAML::Node scene)
@@ -203,4 +207,4 @@ void BorderlessEngine::EditorGUI::CreateNewGameObject()
 vector<Window*> BorderlessEngine::EditorGUI::windows = vector<Window*>();
 Inspector* BorderlessEngine::EditorGUI::inspector = 0;
 Hierarchy* BorderlessEngine::EditorGUI::hierarchy = 0;
-BorderlessEngine::Scene currentScene;
+BorderlessEngine::Scene BorderlessEngine::EditorGUI::currentScene;

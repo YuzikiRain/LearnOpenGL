@@ -14,7 +14,7 @@ namespace BorderlessEngine
 	const unsigned int SCR_WIDTH = 800;
 	const unsigned int SCR_HEIGHT = 600;
 
-	double targetFrameRate = 60.0f;
+	double targetFrameRate = 60.0;
 	double realTime = 0.0;
 	double frameTime = 0.0;
 	double accumulator = 0.0;
@@ -50,13 +50,13 @@ namespace BorderlessEngine
 		return 0;
 	}
 
-	void BorderlessEngine::InitSystems()
+	void InitSystems()
 	{
 		InputSystem::Initialize();
 		RenderSystem::Initialize();
 	}
 
-	void BorderlessEngine::GameLoop()
+	void GameLoop()
 	{
 		while (!BorderlessEngine::ShouldQuit())
 		{
@@ -86,7 +86,7 @@ namespace BorderlessEngine
 		}
 	}
 
-	bool BorderlessEngine::ShouldQuit()
+	bool ShouldQuit()
 	{
 		return glfwWindowShouldClose(window);
 	}
