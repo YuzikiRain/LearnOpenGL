@@ -5,33 +5,30 @@
 #include <windows.h>
 #include <shobjidl.h> 
 #include <yaml-cpp/yaml.h>
+#include <Scene.h>
 
-namespace BorderlessEngine {
-	//void EditorGUI::InitImgui(GLFWwindow* window)
-	//{
-	//	ImGui::CreateContext();     // Setup Dear ImGui context
-	//	ImGui::StyleColorsDark();       // Setup Dear ImGui style
-	//	ImGui_ImplGlfw_InitForOpenGL(window, true);     // Setup Platform/Renderer backends
-	//	ImGui_ImplOpenGL3_Init("#version 450");
-
-	//	bool show_demo_window = true;
-	//	bool show_another_window = false;
-	//	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-
-	//	// 启用docking
-	//	ImGui::GetIO().ConfigFlags = ImGuiConfigFlags_DockingEnable;
-
-	//	inspector = new Inspector();
-	//	windows.push_back(inspector);
-	//	hierarchy = new Hierarchy();
-	//	windows.push_back(hierarchy);
-	//}
-
+namespace BorderlessEngineEditor {
 	void EditorGUI::InitImgui(GLFWwindow* window)
 	{
+		ImGui::CreateContext();     // Setup Dear ImGui context
+		ImGui::StyleColorsDark();       // Setup Dear ImGui style
+		ImGui_ImplGlfw_InitForOpenGL(window, true);     // Setup Platform/Renderer backends
+		ImGui_ImplOpenGL3_Init("#version 450");
+
+		bool show_demo_window = true;
+		bool show_another_window = false;
+		ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+
+		// 启用docking
+		ImGui::GetIO().ConfigFlags = ImGuiConfigFlags_DockingEnable;
+
+		inspector = new Inspector();
+		windows.push_back(inspector);
+		hierarchy = new Hierarchy();
+		windows.push_back(hierarchy);
 	}
 
-	void BorderlessEngine::EditorGUI::DrawImgui()
+	void EditorGUI::DrawImgui()
 	{
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
@@ -60,6 +57,10 @@ namespace BorderlessEngine {
 		{
 			if (ImGui::BeginMenu("File"))
 			{
+				if (ImGui::MenuItem("New Scene"))
+				{
+					NewScene();
+				}
 				if (ImGui::MenuItem("Open Scene"))
 				{
 					OpenScene();
@@ -112,7 +113,7 @@ namespace BorderlessEngine {
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	}
 
-	void BorderlessEngine::EditorGUI::ShutDownEditorGUI()
+	void EditorGUI::ShutDownEditorGUI()
 	{
 		ImGui_ImplOpenGL2_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
@@ -163,7 +164,7 @@ namespace BorderlessEngine {
 		return NULL;
 	}
 
-	void BorderlessEngine::EditorGUI::OpenScene()
+	void EditorGUI::OpenScene()
 	{
 		char* path = (char*)OpenFile();
 		if (!path)
@@ -175,12 +176,12 @@ namespace BorderlessEngine {
 		DeserializeScene(scene);
 	}
 
-	void BorderlessEngine::EditorGUI::NewScene()
+	void EditorGUI::NewScene()
 	{
-		currentScene = Scene();
+		currentScene = BorderlessEngine::Scene();
 	}
 
-	void BorderlessEngine::EditorGUI::SerializeScene()
+	void EditorGUI::SerializeScene()
 	{
 		const char* path = "D:/UnityProject/LearnOpenGL/Opengl/Assets/Scene/scene1.txt";
 		//fstream  afile;
@@ -192,7 +193,7 @@ namespace BorderlessEngine {
 		//fout.close();
 	}
 
-	void BorderlessEngine::EditorGUI::DeserializeScene(YAML::Node scene)
+	void EditorGUI::DeserializeScene(YAML::Node scene)
 	{
 
 		string scenName = scene["name"].as<string>();
@@ -204,18 +205,18 @@ namespace BorderlessEngine {
 		//afile.close();
 	}
 
-	void BorderlessEngine::EditorGUI::CreateNewGameObject()
+	void EditorGUI::CreateNewGameObject()
 	{
 		currentScene.AddEmptyGameObject();
 	}
 
-	void BorderlessEngine::EditorGUI::GetAllGameObjects()
+	vector<BorderlessEngine::GameObject> EditorGUI::GetAllGameObjects()
 	{
-		currentScene.GetAllGameObjects();
+		return currentScene.GetAllGameObjects();
 	}
 
-	vector<Window*> BorderlessEngine::EditorGUI::windows = vector<Window*>();
-	Inspector* BorderlessEngine::EditorGUI::inspector = 0;
-	Hierarchy* BorderlessEngine::EditorGUI::hierarchy = 0;
-	BorderlessEngine::Scene BorderlessEngine::EditorGUI::currentScene;
+	vector<Window*> EditorGUI::windows = vector<Window*>();
+	Inspector* EditorGUI::inspector = 0;
+	Hierarchy* EditorGUI::hierarchy = 0;
+	BorderlessEngine::Scene EditorGUI::currentScene;
 }

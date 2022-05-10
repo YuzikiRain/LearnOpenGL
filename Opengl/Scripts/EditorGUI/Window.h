@@ -1,40 +1,15 @@
 #pragma once
 
-namespace BorderlessEngine
+namespace BorderlessEngineEditor
 {
-	namespace EditorGUI
+	class Window
 	{
-		class Window
-		{
-		public:
-			virtual void Open()
-			{
-				isOpen = true;
-				canClose = true;
-			}
-			void BeginDraw()
-			{
-				ImGui::Begin(name, &isOpen, ImGuiWindowFlags_None);
-			}
-			virtual void Draw()
-			{
-
-				//if (!isOpen)
-				//{
-				//	ImGui::End();
-				//	return false;
-				//}
-				//return true;
-			}
-			void EndDraw()
-			{
-				ImGui::End();
-			}
-			const char* name = "Window";
-			bool  isOpen;
-			bool  canClose = true;
-		protected:
-
-		};
-	}
+	public:
+		virtual void Open();
+		void BeginDraw();
+		virtual void Draw();
+		void EndDraw();
+		const char* name = "Window";
+		bool  isOpen;
+	};
 }

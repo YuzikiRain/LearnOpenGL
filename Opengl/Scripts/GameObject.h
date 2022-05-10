@@ -6,7 +6,7 @@ namespace BorderlessEngine
 	{
 	public:
 		GameObject(const char* name);
-	private:
 		const char* name;
+	private:
 	};
 }

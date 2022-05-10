@@ -6,7 +6,7 @@ namespace BorderlessEngine {
 	extern GLFWwindow* window;
 	bool RenderSystem::Initialize()
 	{
-		EditorGUI::InitImgui(window);
+		BorderlessEngineEditor::EditorGUI::InitImgui(window);
 		return true;
 	}
 	void RenderSystem::Update()
@@ -23,12 +23,12 @@ namespace BorderlessEngine {
 		glClearColor(0, 0, 0, 0);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		EditorGUI::DrawImgui();
+		BorderlessEngineEditor::EditorGUI::DrawImgui();
 
 		glfwSwapBuffers(window);
 	}
 	void RenderSystem::Destroy()
 	{
-		EditorGUI::ShutDownEditorGUI();
+		BorderlessEngineEditor::EditorGUI::ShutDownEditorGUI();
 	}
 }

@@ -16,7 +16,7 @@ namespace BorderlessEngine
 	{
 		this->gameObjects.push_back(GameObject("New GameObject"));
 	}
-	list<GameObject> Scene::GetAllGameObjects()
+	vector<GameObject> Scene::GetAllGameObjects()
 	{
 		return this->gameObjects;
 	}

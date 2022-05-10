@@ -18,14 +18,16 @@
 #include <vector>
 
 // 所有需要的editorwindow子类
+#include<EditorGUI/Window.h>
 #include<EditorGUI/Inspector.h>
 #include<EditorGUI/Hierarchy.h>
 #include <Scene.h>
 #include <yaml-cpp/yaml.h>
+#include <GameObject.h>
 
 using namespace std;
 
-namespace BorderlessEngine {
+namespace BorderlessEngineEditor {
 	class EditorGUI
 	{
 	public:
@@ -44,11 +46,11 @@ namespace BorderlessEngine {
 		static void NewScene();
 		static void SerializeScene();
 		static void DeserializeScene(YAML::Node scene);
-		static void GetAllGameObjects();
+		static vector<BorderlessEngine::GameObject> GetAllGameObjects();
 	private:
-		static BorderlessEngine::EditorGUI::Inspector* inspector;
-		static BorderlessEngine::EditorGUI::Hierarchy* hierarchy;
-		static Scene currentScene;
-		static vector<BorderlessEngine::EditorGUI::Window*> windows;
+		static BorderlessEngineEditor::Inspector* inspector;
+		static BorderlessEngineEditor::Hierarchy* hierarchy;
+		static BorderlessEngine::Scene currentScene;
+		static vector<BorderlessEngineEditor::Window*> windows;
 	};
 }
