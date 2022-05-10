@@ -2,6 +2,7 @@
 #include <GameObject.h>
 #include <list>
 #include <vector>
+using namespace std;
 
 namespace BorderlessEngine
 {
@@ -10,7 +11,9 @@ namespace BorderlessEngine
 	public:
 		Scene();
 		Scene(const char* name);
-		Scene(const char* name, std::list<GameObject> gameObjects);
+		Scene(const char* name, list<GameObject> gameObjects);
+		void AddEmptyGameObject();
+		list<GameObject> GetAllGameObjects();
 		const char* name;
 	private:
 		//std::vector<GameObject> gameObjects;

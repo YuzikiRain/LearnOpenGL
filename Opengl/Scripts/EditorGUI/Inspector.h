@@ -1,7 +1,7 @@
 #pragma once
 #include <EditorGUI/Window.h>
 
-namespace Bordless
+namespace BorderlessEngine
 {
 	namespace EditorGUI
 	{

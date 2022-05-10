@@ -11,4 +11,13 @@ namespace BorderlessEngine
 	{
 		this->name = name;
 	}
+
+	void Scene::AddEmptyGameObject()
+	{
+		this->gameObjects.push_back(GameObject("New GameObject"));
+	}
+	list<GameObject> Scene::GetAllGameObjects()
+	{
+		return this->gameObjects;
+	}
 }

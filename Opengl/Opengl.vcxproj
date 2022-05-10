@@ -160,6 +160,7 @@
     <ClCompile Include="Scripts\ECS\System\InputSystem.cpp" />
     <ClCompile Include="Scripts\ECS\System\RenderSystem.cpp" />
     <ClCompile Include="Scripts\EditorGUI\EditorGUI.cpp" />
+    <ClCompile Include="Scripts\EditorGUI\Hierarchy.cpp" />
     <ClCompile Include="Scripts\GameObject.cpp" />
     <ClCompile Include="Scripts\Scene.cpp" />
     <ClCompile Include="src\glad.c" />

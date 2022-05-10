@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Bordless
+namespace BorderlessEngine
 {
 	namespace EditorGUI
 	{

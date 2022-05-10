@@ -2,7 +2,7 @@
 #include <EditorGUI/Window.h>
 #include <EditorGUI/Selection.h>
 
-namespace Bordless
+namespace BorderlessEngine
 {
 	namespace EditorGUI
 	{

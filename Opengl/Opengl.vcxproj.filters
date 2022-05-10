@@ -96,6 +96,9 @@
     <ClCompile Include="Scripts\BorderlessEngine.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Scripts\EditorGUI\Hierarchy.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\stb_image.h">

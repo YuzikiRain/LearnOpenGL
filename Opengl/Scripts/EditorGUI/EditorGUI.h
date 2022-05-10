@@ -23,7 +23,6 @@
 #include <Scene.h>
 #include <yaml-cpp/yaml.h>
 
-using namespace Bordless::EditorGUI;
 using namespace std;
 
 namespace BorderlessEngine {
@@ -45,10 +44,11 @@ namespace BorderlessEngine {
 		static void NewScene();
 		static void SerializeScene();
 		static void DeserializeScene(YAML::Node scene);
+		static void GetAllGameObjects();
 	private:
-		static Inspector* inspector;
-		static Hierarchy* hierarchy;
+		static BorderlessEngine::EditorGUI::Inspector* inspector;
+		static BorderlessEngine::EditorGUI::Hierarchy* hierarchy;
 		static Scene currentScene;
-		static vector<Window*> windows;
+		static vector<BorderlessEngine::EditorGUI::Window*> windows;
 	};
 }
