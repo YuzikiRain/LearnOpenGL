@@ -1,8 +1,9 @@
 #pragma once
+#include <Object.h>
 
 namespace BorderlessEngine
 {
-	class GameObject
+	class GameObject : public Object
 	{
 	public:
 		GameObject(const char* name);

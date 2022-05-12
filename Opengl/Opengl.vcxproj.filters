@@ -48,12 +48,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\glad.c">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="imgui\imgui.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
@@ -78,31 +72,37 @@
     <ClCompile Include="imgui\imgui_widgets.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\ECS\System\InputSystem.cpp">
+    <ClCompile Include="BorderlessEngine\ECS\System\InputSystem.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\ECS\System\RenderSystem.cpp">
+    <ClCompile Include="BorderlessEngine\ECS\System\RenderSystem.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\EditorGUI\EditorGUI.cpp">
+    <ClCompile Include="BorderlessEngine\EditorGUI\EditorGUI.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\Scene.cpp">
+    <ClCompile Include="BorderlessEngine\EditorGUI\Hierarchy.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\GameObject.cpp">
+    <ClCompile Include="BorderlessEngine\EditorGUI\Inspector.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\BorderlessEngine.cpp">
+    <ClCompile Include="BorderlessEngine\EditorGUI\Selection.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\EditorGUI\Hierarchy.cpp">
+    <ClCompile Include="BorderlessEngine\EditorGUI\Window.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\EditorGUI\Window.cpp">
+    <ClCompile Include="BorderlessEngine\GameObject.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\EditorGUI\Inspector.cpp">
+    <ClCompile Include="BorderlessEngine\Object.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="BorderlessEngine\Scene.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="BorderlessEngine\BorderlessEngine.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -199,6 +199,66 @@
     </ClInclude>
     <ClInclude Include="Scripts\GameObject.h">
       <Filter>Serialize</Filter>
+    </ClInclude>
+    <ClInclude Include="BorderlessEngine\BorderlessEngine.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BorderlessEngine\Camera\Camera.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BorderlessEngine\Camera\SceneCamera.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BorderlessEngine\ECS\Component\TransformComponent.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BorderlessEngine\ECS\System\CameraSystem.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BorderlessEngine\ECS\System\InputSystem.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BorderlessEngine\ECS\System\RenderSystem.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BorderlessEngine\ECS\System\System.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BorderlessEngine\EditorGUI\EditorGUI.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BorderlessEngine\EditorGUI\Hierarchy.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BorderlessEngine\EditorGUI\Inspector.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BorderlessEngine\EditorGUI\Selection.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BorderlessEngine\EditorGUI\Window.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BorderlessEngine\GameObject.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BorderlessEngine\Model\Mesh.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BorderlessEngine\Model\Model.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BorderlessEngine\MyWindow.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BorderlessEngine\Object.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BorderlessEngine\Scene.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="BorderlessEngine\Shader.h">
+      <Filter>源文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

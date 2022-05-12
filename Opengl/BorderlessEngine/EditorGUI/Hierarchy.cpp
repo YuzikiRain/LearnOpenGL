@@ -1,6 +1,7 @@
 #include <EditorGUI/Hierarchy.h>
 #include <imgui.h>
 #include <EditorGUI/EditorGUI.h>
+#include <EditorGUI/Selection.h>
 
 namespace BorderlessEngineEditor
 {
@@ -26,9 +27,9 @@ namespace BorderlessEngineEditor
 		for (size_t i = 0; i < objs.size(); i++)
 		{
 			BorderlessEngine::GameObject obj = objs[i];
-			if (ImGui::TreeNode((void*)(intptr_t)i, obj.name, i))
+			if (ImGui::Selectable(obj.name, BorderlessEngineEditor::Selection::current == &obj))
 			{
-
+				BorderlessEngineEditor::Selection::current = &obj;
 			}
 		}
 
