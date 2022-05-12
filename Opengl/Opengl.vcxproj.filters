@@ -72,40 +72,40 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\BorderlessEngine.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\glad.c">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\ECS\System\InputSystem.cpp">
+    <ClCompile Include="BorderlessEngine\BorderlessEngine.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\ECS\System\RenderSystem.cpp">
+    <ClCompile Include="BorderlessEngine\GameObject.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\EditorGUI\EditorGUI.cpp">
+    <ClCompile Include="BorderlessEngine\Object.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\EditorGUI\Hierarchy.cpp">
+    <ClCompile Include="BorderlessEngine\Scene.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\EditorGUI\Inspector.cpp">
+    <ClCompile Include="BorderlessEngine\EditorGUI\EditorGUI.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\EditorGUI\Selection.cpp">
+    <ClCompile Include="BorderlessEngine\EditorGUI\Hierarchy.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\EditorGUI\Window.cpp">
+    <ClCompile Include="BorderlessEngine\EditorGUI\Inspector.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\GameObject.cpp">
+    <ClCompile Include="BorderlessEngine\EditorGUI\Selection.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\Object.cpp">
+    <ClCompile Include="BorderlessEngine\EditorGUI\Window.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\Scene.cpp">
+    <ClCompile Include="BorderlessEngine\ECS\System\InputSystem.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="BorderlessEngine\ECS\System\RenderSystem.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

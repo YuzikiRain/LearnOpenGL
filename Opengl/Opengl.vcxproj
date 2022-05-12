@@ -80,7 +80,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>./include/;./Scripts;./imgui;$(IncludePath)</IncludePath>
+    <IncludePath>./include/;./BorderlessEngine;./imgui;$(IncludePath)</IncludePath>
     <LibraryPath>./lib;$(LibraryPath)</LibraryPath>
     <SourcePath>$(SourcePath)</SourcePath>
   </PropertyGroup>
@@ -147,6 +147,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BorderlessEngine\BorderlessEngine.cpp" />
+    <ClCompile Include="BorderlessEngine\ECS\System\InputSystem.cpp" />
+    <ClCompile Include="BorderlessEngine\ECS\System\RenderSystem.cpp" />
+    <ClCompile Include="BorderlessEngine\EditorGUI\EditorGUI.cpp" />
+    <ClCompile Include="BorderlessEngine\EditorGUI\Hierarchy.cpp" />
+    <ClCompile Include="BorderlessEngine\EditorGUI\Inspector.cpp" />
+    <ClCompile Include="BorderlessEngine\EditorGUI\Selection.cpp" />
+    <ClCompile Include="BorderlessEngine\EditorGUI\Window.cpp" />
+    <ClCompile Include="BorderlessEngine\GameObject.cpp" />
+    <ClCompile Include="BorderlessEngine\Object.cpp" />
+    <ClCompile Include="BorderlessEngine\Scene.cpp" />
     <ClCompile Include="imgui\backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="imgui\backends\imgui_impl_opengl2.cpp" />
     <ClCompile Include="imgui\backends\imgui_impl_opengl3.cpp" />
@@ -156,17 +167,6 @@
     <ClCompile Include="imgui\imgui_tables.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Scripts\BorderlessEngine.cpp" />
-    <ClCompile Include="Scripts\ECS\System\InputSystem.cpp" />
-    <ClCompile Include="Scripts\ECS\System\RenderSystem.cpp" />
-    <ClCompile Include="Scripts\EditorGUI\EditorGUI.cpp" />
-    <ClCompile Include="Scripts\EditorGUI\Hierarchy.cpp" />
-    <ClCompile Include="Scripts\EditorGUI\Inspector.cpp" />
-    <ClCompile Include="Scripts\EditorGUI\Selection.cpp" />
-    <ClCompile Include="Scripts\EditorGUI\Window.cpp" />
-    <ClCompile Include="Scripts\GameObject.cpp" />
-    <ClCompile Include="Scripts\Object.cpp" />
-    <ClCompile Include="Scripts\Scene.cpp" />
     <ClCompile Include="src\glad.c" />
   </ItemGroup>
   <ItemGroup>
