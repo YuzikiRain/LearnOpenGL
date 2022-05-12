@@ -10,6 +10,6 @@ namespace BorderlessEngineEditor
 	}
 	void  Inspector::Draw()
 	{
-		BorderlessEngine::GameObject* obj = Selection::current;
+		BorderlessEngine::GameObject* obj = static_cast<BorderlessEngine::GameObject*>(Selection::current);
 	}
 }

@@ -80,7 +80,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>./include;./BorderlessEngine;./imgui;$(IncludePath)</IncludePath>
+    <IncludePath>./include/;./Scripts;./imgui;$(IncludePath)</IncludePath>
     <LibraryPath>./lib;$(LibraryPath)</LibraryPath>
     <SourcePath>$(SourcePath)</SourcePath>
   </PropertyGroup>
@@ -147,17 +147,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BorderlessEngine\BorderlessEngine.cpp" />
-    <ClCompile Include="BorderlessEngine\ECS\System\InputSystem.cpp" />
-    <ClCompile Include="BorderlessEngine\ECS\System\RenderSystem.cpp" />
-    <ClCompile Include="BorderlessEngine\EditorGUI\EditorGUI.cpp" />
-    <ClCompile Include="BorderlessEngine\EditorGUI\Hierarchy.cpp" />
-    <ClCompile Include="BorderlessEngine\EditorGUI\Inspector.cpp" />
-    <ClCompile Include="BorderlessEngine\EditorGUI\Selection.cpp" />
-    <ClCompile Include="BorderlessEngine\EditorGUI\Window.cpp" />
-    <ClCompile Include="BorderlessEngine\GameObject.cpp" />
-    <ClCompile Include="BorderlessEngine\Object.cpp" />
-    <ClCompile Include="BorderlessEngine\Scene.cpp" />
     <ClCompile Include="imgui\backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="imgui\backends\imgui_impl_opengl2.cpp" />
     <ClCompile Include="imgui\backends\imgui_impl_opengl3.cpp" />
@@ -166,28 +155,21 @@
     <ClCompile Include="imgui\imgui_draw.cpp" />
     <ClCompile Include="imgui\imgui_tables.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Scripts\BorderlessEngine.cpp" />
+    <ClCompile Include="Scripts\ECS\System\InputSystem.cpp" />
+    <ClCompile Include="Scripts\ECS\System\RenderSystem.cpp" />
+    <ClCompile Include="Scripts\EditorGUI\EditorGUI.cpp" />
+    <ClCompile Include="Scripts\EditorGUI\Hierarchy.cpp" />
+    <ClCompile Include="Scripts\EditorGUI\Inspector.cpp" />
+    <ClCompile Include="Scripts\EditorGUI\Selection.cpp" />
+    <ClCompile Include="Scripts\EditorGUI\Window.cpp" />
+    <ClCompile Include="Scripts\GameObject.cpp" />
+    <ClCompile Include="Scripts\Object.cpp" />
+    <ClCompile Include="Scripts\Scene.cpp" />
+    <ClCompile Include="src\glad.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BorderlessEngine\BorderlessEngine.h" />
-    <ClInclude Include="BorderlessEngine\Camera\Camera.h" />
-    <ClInclude Include="BorderlessEngine\Camera\SceneCamera.h" />
-    <ClInclude Include="BorderlessEngine\ECS\Component\TransformComponent.h" />
-    <ClInclude Include="BorderlessEngine\ECS\System\CameraSystem.h" />
-    <ClInclude Include="BorderlessEngine\ECS\System\InputSystem.h" />
-    <ClInclude Include="BorderlessEngine\ECS\System\RenderSystem.h" />
-    <ClInclude Include="BorderlessEngine\ECS\System\System.h" />
-    <ClInclude Include="BorderlessEngine\EditorGUI\EditorGUI.h" />
-    <ClInclude Include="BorderlessEngine\EditorGUI\Hierarchy.h" />
-    <ClInclude Include="BorderlessEngine\EditorGUI\Inspector.h" />
-    <ClInclude Include="BorderlessEngine\EditorGUI\Selection.h" />
-    <ClInclude Include="BorderlessEngine\EditorGUI\Window.h" />
-    <ClInclude Include="BorderlessEngine\GameObject.h" />
-    <ClInclude Include="BorderlessEngine\Model\Mesh.h" />
-    <ClInclude Include="BorderlessEngine\Model\Model.h" />
-    <ClInclude Include="BorderlessEngine\MyWindow.h" />
-    <ClInclude Include="BorderlessEngine\Object.h" />
-    <ClInclude Include="BorderlessEngine\Scene.h" />
-    <ClInclude Include="BorderlessEngine\Shader.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="imgui\backends\imgui_impl_glfw.h" />
     <ClInclude Include="imgui\backends\imgui_impl_metal.h" />
@@ -201,8 +183,6 @@
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
     <ClInclude Include="Include\stb_image.h" />
-    <ClInclude Include="Scene.h" />
-    <ClInclude Include="Scripts\BorderlessEngine.h" />
     <ClInclude Include="Scripts\ECS\Component\TransformComponent.h" />
     <ClInclude Include="Scripts\ECS\System\CameraSystem.h" />
     <ClInclude Include="Scripts\ECS\System\InputSystem.h" />
@@ -214,10 +194,8 @@
     <ClInclude Include="Scripts\EditorGUI\Object.h" />
     <ClInclude Include="Scripts\EditorGUI\Selection.h" />
     <ClInclude Include="Scripts\EditorGUI\Window.h" />
-    <ClInclude Include="Scripts\GameObject.h" />
     <ClInclude Include="Scripts\Model\Mesh.h" />
     <ClInclude Include="Scripts\Model\Model.h" />
-    <ClInclude Include="Scripts\MyWindow.h" />
     <ClInclude Include="Scripts\Shader.h" />
   </ItemGroup>
   <ItemGroup>

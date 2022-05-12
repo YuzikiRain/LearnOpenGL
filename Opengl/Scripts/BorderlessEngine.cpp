@@ -1,10 +1,10 @@
 #include <BorderlessEngine.h>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <iostream>
-#include <cmath>
 #include <ECS/System/InputSystem.h>
 #include <ECS/System/RenderSystem.h>
+#include <iostream>
+#include <cmath>
 #include <chrono>
 #include <thread>
 
