@@ -14,9 +14,9 @@ namespace BorderlessEngine
 
 	void Scene::AddEmptyGameObject()
 	{
-		this->gameObjects.push_back(GameObject("New GameObject"));
+		this->gameObjects.push_back(new GameObject());
 	}
-	vector<GameObject> Scene::GetAllGameObjects()
+	vector<GameObject*> Scene::GetAllGameObjects()
 	{
 		return this->gameObjects;
 	}

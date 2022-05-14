@@ -14,7 +14,7 @@ namespace BorderlessEngine
 	const unsigned int SCR_WIDTH = 800;
 	const unsigned int SCR_HEIGHT = 600;
 
-	double targetFrameRate = 60.0;
+	double targetFrameRate = 20.0;
 	double realTime = 0.0;
 	double frameTime = 0.0;
 	double accumulator = 0.0;

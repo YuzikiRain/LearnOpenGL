@@ -23,16 +23,31 @@ namespace BorderlessEngineEditor
 			ImGui::EndPopup();
 		}
 
+		static ImGuiTreeNodeFlags base_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_SpanAvailWidth;
 		auto objs = EditorGUI::GetAllGameObjects();
 		for (size_t i = 0; i < objs.size(); i++)
 		{
-			BorderlessEngine::GameObject obj = objs[i];
-			if (ImGui::Selectable(obj.name, BorderlessEngineEditor::Selection::current == &obj))
+			auto obj = objs[i];
+			ImGuiTreeNodeFlags node_flags = base_flags;
+			if (BorderlessEngineEditor::Selection::current == obj) node_flags |= ImGuiTreeNodeFlags_Selected;
+			bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)i, node_flags, obj->name);
+			if (ImGui::IsItemClicked() && !ImGui::IsItemToggledOpen())
 			{
-				BorderlessEngineEditor::Selection::current = &obj;
+				BorderlessEngineEditor::Selection::current = obj;
 			}
-		}
+			if (node_open)
+			{
+				ImGui::TreePop();
+			}
 
+			//ImGui::Text("obj:%d %p\n", i, obj);
+			//printf("%p\n", &obj);
+			//if (ImGui::Selectable(obj->name, BorderlessEngineEditor::Selection::current == obj))
+			//{
+			//	BorderlessEngineEditor::Selection::current = obj;
+			//}
+		}
+		ImGui::Text("current %p\n", BorderlessEngineEditor::Selection::current);
 
 		if (ImGui::TreeNode("Basic trees"))
 		{

@@ -108,6 +108,9 @@
     <ClCompile Include="BorderlessEngine\ECS\System\RenderSystem.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="BorderlessEngine\ECS\Entity.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\stb_image.h">

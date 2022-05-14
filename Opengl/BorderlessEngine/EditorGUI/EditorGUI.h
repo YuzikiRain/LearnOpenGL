@@ -46,7 +46,7 @@ namespace BorderlessEngineEditor {
 		static void NewScene();
 		static void SerializeScene();
 		static void DeserializeScene(YAML::Node scene);
-		static vector<BorderlessEngine::GameObject> GetAllGameObjects();
+		static vector<BorderlessEngine::GameObject*> GetAllGameObjects();
 	private:
 		static BorderlessEngineEditor::Inspector* inspector;
 		static BorderlessEngineEditor::Hierarchy* hierarchy;

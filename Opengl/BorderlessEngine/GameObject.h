@@ -6,8 +6,10 @@ namespace BorderlessEngine
 	class GameObject : public Object
 	{
 	public:
-		GameObject(const char* name);
-		const char* name;
+		GameObject();
+		GameObject(char* name);
+		char* name;
+		bool isActive;
 	private:
 	};
 }

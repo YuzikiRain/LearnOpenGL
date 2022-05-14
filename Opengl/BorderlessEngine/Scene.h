@@ -13,10 +13,9 @@ namespace BorderlessEngine
 		Scene(const char* name);
 		Scene(const char* name, list<GameObject> gameObjects);
 		void AddEmptyGameObject();
-		vector<GameObject> GetAllGameObjects();
+		vector<GameObject*> GetAllGameObjects();
 		const char* name;
 	private:
-		//std::vector<GameObject> gameObjects;
-		std::vector<GameObject> gameObjects;
+		std::vector<GameObject*> gameObjects;
 	};
 }

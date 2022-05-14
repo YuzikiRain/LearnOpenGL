@@ -210,7 +210,7 @@ namespace BorderlessEngineEditor {
 		currentScene.AddEmptyGameObject();
 	}
 
-	vector<BorderlessEngine::GameObject> EditorGUI::GetAllGameObjects()
+	vector<BorderlessEngine::GameObject*> EditorGUI::GetAllGameObjects()
 	{
 		return currentScene.GetAllGameObjects();
 	}
