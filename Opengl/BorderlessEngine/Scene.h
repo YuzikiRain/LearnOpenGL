@@ -1,6 +1,5 @@
 #pragma once
 #include <GameObject.h>
-#include <list>
 #include <vector>
 using namespace std;
 
@@ -11,11 +10,11 @@ namespace BorderlessEngine
 	public:
 		Scene();
 		Scene(const char* name);
-		Scene(const char* name, list<GameObject> gameObjects);
+		Scene(const char* name, vector<GameObject*> gameObjects);
 		void AddEmptyGameObject();
 		vector<GameObject*> GetAllGameObjects();
 		const char* name;
 	private:
-		std::vector<GameObject*> gameObjects;
+		mutable std::vector<GameObject*> gameObjects;
 	};
 }

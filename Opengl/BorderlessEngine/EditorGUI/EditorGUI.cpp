@@ -1,11 +1,12 @@
 #include <EditorGUI/EditorGUI.h>
 #include <BorderlessEngine.h>
 #include <Scene.h>
-#include <objbase.h>
 #include <windows.h>
-#include <shobjidl.h> 
+#include <fstream>
 #include <yaml-cpp/yaml.h>
 #include <Scene.h>
+#include <shobjidl.h>
+#include <string>
 
 namespace BorderlessEngineEditor {
 	void EditorGUI::InitImgui(GLFWwindow* window)
@@ -42,7 +43,7 @@ namespace BorderlessEngineEditor {
 			ImGuiWindowFlags_NoTitleBar |
 			ImGuiWindowFlags_NoDecoration |					// 不需要标题、不需要调整大小、不需要滚动条、不需要折叠
 			ImGuiWindowFlags_AlwaysAutoResize |				// 自动调整大小
-			ImGuiWindowFlags_NoSavedSettings |				// 不需要保存会加载布局信息
+			//ImGuiWindowFlags_NoSavedSettings |				// 不需要保存会加载布局信息
 			ImGuiWindowFlags_NoFocusOnAppearing |			// 显示时不需要获取交点
 			ImGuiWindowFlags_NoNav;
 		if (ImGui::Begin("frame rate", &isFrameRateOpen, window_flags))
@@ -64,6 +65,10 @@ namespace BorderlessEngineEditor {
 				if (ImGui::MenuItem("Open Scene"))
 				{
 					OpenScene();
+				}
+				if (ImGui::MenuItem("Save Scene"))
+				{
+					SaveScene();
 				}
 				ImGui::EndMenu();
 			}
@@ -120,6 +125,11 @@ namespace BorderlessEngineEditor {
 		ImGui::DestroyContext();
 	}
 
+	const COMDLG_FILTERSPEC fileType[] =
+	{
+		 { L"BorderlessEngine scene file", L"*.scene" },
+	};
+
 	PWSTR WINAPI OpenFile()
 	{
 		HRESULT hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED |
@@ -135,6 +145,8 @@ namespace BorderlessEngineEditor {
 
 			if (SUCCEEDED(hr))
 			{
+				// 设置文件筛选
+				pFileOpen->SetFileTypes(ARRAYSIZE(fileType), fileType);
 				// Show the Open dialog box.
 				hr = pFileOpen->Show(NULL);
 
@@ -164,59 +176,125 @@ namespace BorderlessEngineEditor {
 		return NULL;
 	}
 
-	void EditorGUI::OpenScene()
+	PWSTR WINAPI SaveFile()
 	{
-		char* path = (char*)OpenFile();
-		if (!path)
+		HRESULT hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED |
+			COINIT_DISABLE_OLE1DDE);
+		if (SUCCEEDED(hr))
 		{
-			return;
-		}
+			PWSTR pszFilePath;
+			IFileSaveDialog* pFileOpen;
 
-		YAML::Node scene = YAML::LoadFile(path);
-		DeserializeScene(scene);
+			// Create the FileOpenDialog object.
+			hr = CoCreateInstance(CLSID_FileSaveDialog, NULL, CLSCTX_ALL,
+				IID_IFileSaveDialog, reinterpret_cast<void**>(&pFileOpen));
+
+			if (SUCCEEDED(hr))
+			{
+				// 设置文件筛选
+				pFileOpen->SetFileTypes(ARRAYSIZE(fileType), fileType);
+				// 设置默认扩展名
+				pFileOpen->SetDefaultExtension(L"scene");
+
+				// Show the Open dialog box.
+				hr = pFileOpen->Show(NULL);
+
+				// Get the file name from the dialog box.
+				if (SUCCEEDED(hr))
+				{
+					IShellItem* pItem;
+					hr = pFileOpen->GetResult(&pItem);
+					if (SUCCEEDED(hr))
+					{
+						hr = pItem->GetDisplayName(SIGDN_FILESYSPATH, &pszFilePath);
+
+						// Display the file name to the user.
+						if (SUCCEEDED(hr))
+						{
+							//MessageBoxW(NULL, pszFilePath, L"File Path", MB_OK);
+							return pszFilePath;
+							CoTaskMemFree(pszFilePath);
+						}
+						pItem->Release();
+					}
+				}
+				pFileOpen->Release();
+			}
+			CoUninitialize();
+		}
+		return NULL;
 	}
 
 	void EditorGUI::NewScene()
 	{
-		currentScene = BorderlessEngine::Scene();
+		CloseScene();
+		currentScene = new BorderlessEngine::Scene();
 	}
 
-	void EditorGUI::SerializeScene()
+	void EditorGUI::OpenScene()
 	{
-		const char* path = "D:/UnityProject/LearnOpenGL/Opengl/Assets/Scene/scene1.txt";
-		//fstream  afile;
-		//afile.open(path, ios::out | ios::in);
-		//ofstream fout("D:/UnityProject/LearnOpenGL/Opengl/Assets/Scene/scene1.txt");
-		//YAML::Node scene = YAML::LoadFile(path);
-		//scene["name"] = "test22222";
-		//fout << scene;
-		//fout.close();
+		auto path = OpenFile();
+		if (!path) return;
+
+		CloseScene();
+
+		char pathBuffer[255];
+		WideCharToMultiByte(CP_ACP, 0, path, -1, pathBuffer, sizeof(pathBuffer), NULL, NULL);
+		YAML::Node sceneData = YAML::LoadFile(pathBuffer);
+		auto objs = vector<BorderlessEngine::GameObject*>();
+
+		for (size_t i = 0; i < sceneData["gameObjects"].size(); i++)
+		{
+			auto name = sceneData["gameObjects"][i]["name"].as<string>();
+			objs.push_back(
+				new BorderlessEngine::GameObject(
+					name.c_str(),
+					sceneData["gameObjects"][i]["isActive"].as<bool>()
+				));
+		}
+		currentScene = new BorderlessEngine::Scene("scene", objs);
 	}
 
-	void EditorGUI::DeserializeScene(YAML::Node scene)
+	void EditorGUI::SaveScene()
 	{
+		auto path = SaveFile();
+		if (!path) return;
 
-		string scenName = scene["name"].as<string>();
+		char pathBuffer[255];
+		WideCharToMultiByte(CP_ACP, 0, path, -1, pathBuffer, sizeof(pathBuffer), NULL, NULL);
 
-		//cout << "name:" << scene["name"].as<string>() << endl;
-		//cout << "sex:" << scene["sex"].as<string>() << endl;
-		//cout << "age:" << scene["age"].as<int>() << endl;
+		fstream  sceneFileStream;
+		sceneFileStream.open(path, ios::out | ios::trunc);
+		YAML::Node scene;
+		auto objs = currentScene->GetAllGameObjects();
+		for (size_t i = 0; i < objs.size(); i++)
+		{
+			auto obj = objs[i];
+			scene["gameObjects"][i]["name"] = obj->name;
+			scene["gameObjects"][i]["isActive"] = obj->isActive;
+		}
 
-		//afile.close();
+		sceneFileStream << scene;
+		sceneFileStream.close();
+	}
+
+	void EditorGUI::CloseScene()
+	{
+		delete currentScene;
 	}
 
 	void EditorGUI::CreateNewGameObject()
 	{
-		currentScene.AddEmptyGameObject();
+		currentScene->AddEmptyGameObject();
 	}
 
 	vector<BorderlessEngine::GameObject*> EditorGUI::GetAllGameObjects()
 	{
-		return currentScene.GetAllGameObjects();
+		return currentScene->GetAllGameObjects();
 	}
 
 	vector<Window*> EditorGUI::windows = vector<Window*>();
 	Inspector* EditorGUI::inspector = 0;
 	Hierarchy* EditorGUI::hierarchy = 0;
-	BorderlessEngine::Scene EditorGUI::currentScene;
+	BorderlessEngine::Scene* EditorGUI::currentScene;
 }

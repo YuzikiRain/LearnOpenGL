@@ -39,15 +39,7 @@ namespace BorderlessEngineEditor
 			{
 				ImGui::TreePop();
 			}
-
-			//ImGui::Text("obj:%d %p\n", i, obj);
-			//printf("%p\n", &obj);
-			//if (ImGui::Selectable(obj->name, BorderlessEngineEditor::Selection::current == obj))
-			//{
-			//	BorderlessEngineEditor::Selection::current = obj;
-			//}
 		}
-		ImGui::Text("current %p\n", BorderlessEngineEditor::Selection::current);
 
 		if (ImGui::TreeNode("Basic trees"))
 		{

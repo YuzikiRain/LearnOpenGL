@@ -44,13 +44,13 @@ namespace BorderlessEngineEditor {
 		/// </summary>
 		static void CreateNewGameObject();
 		static void NewScene();
-		static void SerializeScene();
-		static void DeserializeScene(YAML::Node scene);
+		static void SaveScene();
+		static void CloseScene();
 		static vector<BorderlessEngine::GameObject*> GetAllGameObjects();
 	private:
 		static BorderlessEngineEditor::Inspector* inspector;
 		static BorderlessEngineEditor::Hierarchy* hierarchy;
-		static BorderlessEngine::Scene currentScene;
+		static BorderlessEngine::Scene* currentScene;
 		static vector<BorderlessEngineEditor::Window*> windows;
 	};
 }
