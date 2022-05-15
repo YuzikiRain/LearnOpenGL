@@ -38,7 +38,7 @@ namespace BorderlessEngineEditor {
 
 		static bool isFrameRateOpen = false;
 		ImGuiWindowFlags window_flags =
-			ImGuiWindowFlags_NoMove |
+			//ImGuiWindowFlags_NoMove |
 			ImGuiWindowFlags_NoTitleBar |
 			ImGuiWindowFlags_NoDecoration |					// 不需要标题、不需要调整大小、不需要滚动条、不需要折叠
 			ImGuiWindowFlags_AlwaysAutoResize |				// 自动调整大小

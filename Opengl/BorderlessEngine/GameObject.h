@@ -10,6 +10,7 @@ namespace BorderlessEngine
 		GameObject(char* name);
 		char* name;
 		bool isActive;
+		~GameObject();
 	private:
 	};
 }
