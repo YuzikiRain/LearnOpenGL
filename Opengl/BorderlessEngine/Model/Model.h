@@ -19,14 +19,6 @@
 #include <map>
 #include <vector>
 
-//#include <Shader.h>
-//#include <vector>
-//#include <Model/Mesh.h>
-//#include <assimp/Importer.hpp>
-//#include <assimp/scene.h>
-//#include <assimp/postprocess.h>
-//#include <stb_image.h>
-
 using namespace  std;
 
 class Model
@@ -43,7 +35,7 @@ public:
 	}
 
 private:
-	vector < Mesh> meshes;
+	vector <Mesh> meshes;
 	string directoryPath;
 	bool gammaCorrection;
 	void loadModel(string const& path)

@@ -1,6 +1,8 @@
 #pragma once
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <GameObject.h>
+#include <list>
 
 namespace BorderlessEngine {
 	bool InitializeWindow();
@@ -17,4 +19,6 @@ namespace BorderlessEngine {
 	extern double frameTime;
 	extern double accumulator;
 	extern double timeScale;
+
+	std::list<GameObject> entities;
 }

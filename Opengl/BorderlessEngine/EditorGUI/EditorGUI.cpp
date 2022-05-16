@@ -43,7 +43,7 @@ namespace BorderlessEngineEditor {
 			ImGuiWindowFlags_NoTitleBar |
 			ImGuiWindowFlags_NoDecoration |					// 不需要标题、不需要调整大小、不需要滚动条、不需要折叠
 			ImGuiWindowFlags_AlwaysAutoResize |				// 自动调整大小
-			//ImGuiWindowFlags_NoSavedSettings |				// 不需要保存会加载布局信息
+			//ImGuiWindowFlags_NoSavedSettings |				// 不需要保存加载布局信息
 			ImGuiWindowFlags_NoFocusOnAppearing |			// 显示时不需要获取交点
 			ImGuiWindowFlags_NoNav;
 		if (ImGui::Begin("frame rate", &isFrameRateOpen, window_flags))

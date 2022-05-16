@@ -1,9 +1,12 @@
 #include <ECS/System/RenderSystem.h>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <Model/Model.h>
+#include <BorderlessEngine.h>
 
 namespace BorderlessEngine {
 	extern GLFWwindow* window;
+
 	bool RenderSystem::Initialize()
 	{
 		BorderlessEngineEditor::EditorGUI::InitImgui(window);
@@ -24,6 +27,11 @@ namespace BorderlessEngine {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		BorderlessEngineEditor::EditorGUI::DrawImgui();
+
+		for (auto it = entities.begin(); it != entities.end(); it++)
+		{
+			auto entity = *it;
+		}
 
 		glfwSwapBuffers(window);
 	}

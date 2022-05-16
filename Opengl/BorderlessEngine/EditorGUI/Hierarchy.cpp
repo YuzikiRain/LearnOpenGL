@@ -11,7 +11,8 @@ namespace BorderlessEngineEditor
 	}
 	void  Hierarchy::Draw()
 	{
-		if (ImGui::BeginPopupContextWindow()) {
+		if (ImGui::BeginPopupContextWindow())
+		{
 			if (ImGui::BeginMenu("Create"))
 			{
 				if (ImGui::MenuItem("GameObject"))

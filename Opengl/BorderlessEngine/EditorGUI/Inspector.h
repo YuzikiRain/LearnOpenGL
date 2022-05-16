@@ -7,6 +7,6 @@ namespace BorderlessEngineEditor
 	{
 	public:
 		Inspector();
-		void  Draw();
+		void Draw();
 	};
 }
