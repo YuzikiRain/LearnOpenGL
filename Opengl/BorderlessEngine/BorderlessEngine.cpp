@@ -21,6 +21,8 @@ namespace BorderlessEngine
 	double timeScale = 1.0;
 	double targetTime = 0.0;
 
+	std::list<GameObject> entities;
+
 	bool InitializeWindow()
 	{
 		glfwInit();

@@ -20,5 +20,5 @@ namespace BorderlessEngine {
 	extern double accumulator;
 	extern double timeScale;
 
-	std::list<GameObject> entities;
+	extern std::list<GameObject> entities;
 }
