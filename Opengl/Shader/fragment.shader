@@ -14,6 +14,15 @@ uniform vec3 lightColor;
 uniform vec3 viewPositionWS;
 uniform vec4 tintColor;
 
+struct Light
+{
+	vec3 position;
+	vec3 direction;
+	vec3 ambient;
+	vec3 diffuse;
+	vec3 specular;
+};
+
 struct Material
 {
 	vec3 ambient;
@@ -23,6 +32,7 @@ struct Material
 };
 
 uniform Material material;
+uniform Light light;
 
 void main()
 {
@@ -33,7 +43,8 @@ void main()
 
 	// diffuse
 	vec3 normal = normalize(normalOUT);
-	vec3 lightDirection = normalize(lightPositionWS - fragmentPositionWS);
+	//vec3 lightDirection = normalize(lightPositionWS - fragmentPositionWS);
+	vec3 lightDirection = normalize(-light.direction);
 	float diffuse = max(dot(lightDirection, normal), 0.0f);
 	vec3 diffuseColor = diffuse * lightColor;
 
