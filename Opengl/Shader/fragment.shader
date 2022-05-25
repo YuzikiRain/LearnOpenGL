@@ -14,13 +14,22 @@ uniform vec3 lightColor;
 uniform vec3 viewPositionWS;
 uniform vec4 tintColor;
 
+struct Material
+{
+	vec3 ambient;
+	vec3 diffuse;
+	vec3 specular;
+	float shininess;
+};
+
+uniform Material material;
+
 void main()
 {
 	vec3 objectColor = mix(texture(texture0, ourTexCoord), texture(texture1, ourTexCoord), 0.3).rgb;
 
 	// ambient
-	float ambientStrength = 0.3f;
-	vec3 ambient = ambientStrength * lightColor;
+	vec3 ambient = material.ambient * lightColor;
 
 	// diffuse
 	vec3 normal = normalize(normalOUT);

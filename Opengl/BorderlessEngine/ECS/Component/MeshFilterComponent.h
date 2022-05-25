@@ -6,6 +6,7 @@ namespace BorderlessEngine
 	class MeshFilterComponent
 	{
 	public:
-		Mesh mesh;
+		MeshFilterComponent();
+		//Mesh mesh;
 	};
 }
