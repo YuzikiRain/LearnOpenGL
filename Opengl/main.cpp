@@ -12,6 +12,21 @@
 
 #include <iostream>
 
+#include <imgui.h>
+#include <backends/imgui_impl_glfw.h>
+#include <backends/imgui_impl_opengl2.h>
+#include <backends/imgui_impl_opengl3.h>
+#include <stdio.h>
+//#include <Windows.h>
+#include <tchar.h>
+#ifdef __APPLE__
+#define GL_SILENCE_DEPRECATION
+#endif
+
+#if defined(_MSC_VER) && (_MSC_VER >= 1900) && !defined(IMGUI_DISABLE_WIN32_FUNCTIONS)
+#pragma comment(lib, "legacy_stdio_definitions")
+#endif
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
@@ -165,6 +180,15 @@ int main()
 	lightingShader.setInt("material.diffuse", 0);
 	lightingShader.setInt("material.specular", 1);
 
+	ImGui::CreateContext();     // Setup Dear ImGui context
+	ImGui::StyleColorsDark();       // Setup Dear ImGui style
+	ImGui_ImplGlfw_InitForOpenGL(window, true);     // Setup Platform/Renderer backends
+	ImGui_ImplOpenGL3_Init("#version 450");
+
+	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+
+	// 启用docking
+	ImGui::GetIO().ConfigFlags = ImGuiConfigFlags_DockingEnable;
 
 	// render loop
 	// -----------
@@ -185,13 +209,15 @@ int main()
 		glClearColor(0.1f, 0.1f, 0.5f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+
+
 		// world transformation
 		glm::mat4 model = glm::mat4(1.0f);
 		// view/projection transformations
 		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 		glm::mat4 view = camera.GetViewMatrix();
 
-#pragma region 灯光物体
+#pragma region light
 		// also draw the lamp object
 		lightCubeShader.use();
 		lightCubeShader.setMat4("projection", projection);
@@ -204,7 +230,7 @@ int main()
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 #pragma endregion
 
-#pragma region 箱子物体
+#pragma region box
 		// bind diffuse map
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, diffuseMap);
@@ -221,6 +247,9 @@ int main()
 		lightingShader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
 		lightingShader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
 		lightingShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+		lightingShader.setFloat("light.constant", 1.0f);
+		lightingShader.setFloat("light.linear", 0.09f);
+		lightCubeShader.setFloat("light.quadratic", 0.032f);
 
 		// material properties
 		lightingShader.setFloat("material.shininess", 64.0f);
@@ -232,11 +261,11 @@ int main()
 			glm::vec3(0.0f,  0.0f,  0.0f),
 			glm::vec3(2.0f,  5.0f, -15.0f),
 			glm::vec3(-1.5f, -2.2f, -2.5f),
-			glm::vec3(-3.8f, -2.0f, -12.3f),
+			glm::vec3(-3.8f, -2.0f, -32.3f),
 			glm::vec3(2.4f, -0.4f, -3.5f),
 			glm::vec3(-1.7f,  3.0f, -7.5f),
 			glm::vec3(1.3f, -2.0f, -2.5f),
-			glm::vec3(1.5f,  2.0f, -2.5f),
+			glm::vec3(1.5f,  2.0f, -22.5f),
 			glm::vec3(1.5f,  0.2f, -1.5f),
 			glm::vec3(-1.3f,  1.0f, -1.5f)
 		};
@@ -253,6 +282,38 @@ int main()
 		}
 
 #pragma endregion
+
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
+
+		//ImGui::DockSpaceOverViewport(ImGui::GetMainViewport());
+
+		static bool isFrameRateOpen = false;
+		ImGuiWindowFlags window_flags =
+			//ImGuiWindowFlags_NoMove |
+			ImGuiWindowFlags_NoTitleBar |
+			ImGuiWindowFlags_NoDecoration |					// 不需要标题、不需要调整大小、不需要滚动条、不需要折叠
+			ImGuiWindowFlags_AlwaysAutoResize |				// 自动调整大小
+			//ImGuiWindowFlags_NoSavedSettings |				// 不需要保存加载布局信息
+			ImGuiWindowFlags_NoFocusOnAppearing |			// 显示时不需要获取交点
+			ImGuiWindowFlags_NoNav;
+		if (ImGui::Begin("light position", &isFrameRateOpen, window_flags))
+		{
+			static float lightPosition[3] = { 0.10f, 0.20f, 0.30f };
+			//ImGui::Text("frame rate %.0lf", BorderlessEngine::GetFrameRate());
+			ImGui::InputFloat3("light position", lightPosition);
+			//lightPos.x = lightPosition[0];
+			//lightPos.y = lightPosition[1];
+			//lightPos.z = lightPosition[2];
+			//ImGui::InputDouble("targetFrameRate", &BorderlessEngine::targetFrameRate, 1.0f, 5.0f, "%.2f");
+			//ImGui::Text("frame rate %.0lf", BorderlessEngine::GetFrameRate());
+			ImGui::End();
+		}
+
+		// Rendering
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 		// -------------------------------------------------------------------------------

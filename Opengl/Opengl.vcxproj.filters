@@ -172,5 +172,17 @@
     <None Include="Shader\lightCubeVertex.shader">
       <Filter>Shader</Filter>
     </None>
+    <None Include="Shader\4.2.light_cube.fs">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="Shader\4.2.light_cube.vs">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="Shader\4.2.lighting_maps.fs">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="Shader\4.2.lighting_maps.vs">
+      <Filter>Shader</Filter>
+    </None>
   </ItemGroup>
 </Project>

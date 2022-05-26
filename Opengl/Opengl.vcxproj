@@ -188,6 +188,10 @@
     <ClInclude Include="Scripts\Shader.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Shader\4.2.lighting_maps.fs" />
+    <None Include="Shader\4.2.lighting_maps.vs" />
+    <None Include="Shader\4.2.light_cube.fs" />
+    <None Include="Shader\4.2.light_cube.vs" />
     <None Include="Shader\fragment.shader" />
     <None Include="Shader\lightCubeFragment.shader" />
     <None Include="Shader\lightCubeVertex.shader" />
