@@ -193,6 +193,8 @@
     <None Include="Shader\4.2.light_cube.fs" />
     <None Include="Shader\4.2.light_cube.vs" />
     <None Include="Shader\fragment.shader" />
+    <None Include="Shader\framebuffer.fs" />
+    <None Include="Shader\framebuffer.vs" />
     <None Include="Shader\lightCubeFragment.shader" />
     <None Include="Shader\lightCubeVertex.shader" />
     <None Include="Shader\vertex.shader" />
