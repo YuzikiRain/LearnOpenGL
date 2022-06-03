@@ -225,20 +225,20 @@ int main()
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 
-	Shader screenShader("framebuffer.vs", "framebuffer.fs");
+	Shader screenShader("Shader/framebuffer.vs", "Shader/framebuffer.fs");
 	screenShader.use();
 	screenShader.setInt("screenTexture", 0);
 
 	// 简单的quad，由6个顶点构成
 	float quadVertices[] = { // vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
-		// positions   // texCoords
-		-1.0f,  1.0f,  0.0f, 1.0f,
-		-1.0f, -1.0f,  0.0f, 0.0f,
-		 1.0f, -1.0f,  1.0f, 0.0f,
+			// positions   // texCoords
+			-1.0f,  1.0f,  0.0f, 1.0f,
+			-1.0f, -1.0f,  0.0f, 0.0f,
+			 1.0f, -1.0f,  1.0f, 0.0f,
 
-		-1.0f,  1.0f,  0.0f, 1.0f,
-		 1.0f, -1.0f,  1.0f, 0.0f,
-		 1.0f,  1.0f,  1.0f, 1.0f
+			-1.0f,  1.0f,  0.0f, 1.0f,
+			 1.0f, -1.0f,  1.0f, 0.0f,
+			 1.0f,  1.0f,  1.0f, 1.0f
 	};
 
 	// screen quad VAO
@@ -273,8 +273,8 @@ int main()
 	// -----------
 	while (!glfwWindowShouldClose(window))
 	{
-		// 线框模式
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		//// 线框模式
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		// per-frame time logic
 		// --------------------
 		float currentFrame = static_cast<float>(glfwGetTime());
